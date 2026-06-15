@@ -3,130 +3,375 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>濟州島五天四夜美食自駕行</title>
+    <title>🌴 濟州島五天四夜互動自駕遊 🚗</title>
     <style>
-        body { font-family: 'Helvetica Neue', Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 15px; color: #333; }
-        h1 { text-align: center; color: #ff6b6b; font-size: 1.5rem; margin-bottom: 25px;}
-        .day-card { background: #fff; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
-        .day-title { font-size: 1.2rem; font-weight: bold; color: #4facfe; border-bottom: 2px solid #f0f0f0; padding-bottom: 10px; margin-bottom: 15px; }
-        .item { margin-bottom: 15px; padding-left: 15px; border-left: 3px solid #ff6b6b; }
-        .time { font-weight: bold; color: #666; font-size: 0.9rem; }
-        .desc { margin-top: 5px; line-height: 1.5; font-size: 0.95rem; }
-        .badge { display: inline-block; padding: 4px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; color: white; margin-right: 5px; margin-bottom: 5px; }
-        .b-food { background-color: #ff6b6b; }
-        .b-view { background-color: #4facfe; }
-        .b-shop { background-color: #feca57; }
-        .b-car { background-color: #1dd1a1; }
-        .map-btn { display: inline-block; margin-top: 8px; text-decoration: none; font-size: 0.85rem; color: #fff; background: #5352ed; padding: 6px 12px; border-radius: 6px; }
+        :root {
+            --primary-color: #00a8cc; 
+            --secondary-color: #ff7b54; 
+            --bg-color: #f4f9f9; 
+            --text-main: #333333;
+            --text-light: #666666;
+            --card-bg: #ffffff;
+            --tab-bg: #e0f4f8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .header {
+            text-align: center;
+            padding: 20px 15px;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 { color: var(--primary-color); font-size: 1.4rem; margin-bottom: 5px; }
+        .header p { color: var(--text-light); font-size: 0.85rem; }
+
+        /* 導覽列標籤設計 (可橫向滑動) */
+        .tabs-container {
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            background-color: #fff;
+            padding: 10px 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .tabs-container::-webkit-scrollbar { display: none; } /* 隱藏捲軸 */
+
+        .tab-btn {
+            background-color: var(--tab-bg);
+            color: var(--primary-color);
+            border: none;
+            padding: 8px 16px;
+            margin-right: 10px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary-color);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(0, 168, 204, 0.4);
+        }
+
+        /* 內容區塊 */
+        .content-container {
+            padding: 20px 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .day-title {
+            background-color: var(--primary-color);
+            color: white;
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        /* 時間軸設計 */
+        .timeline {
+            border-left: 3px solid #d1e8ee;
+            margin-left: 10px;
+            padding-left: 20px;
+        }
+
+        .timeline-item {
+            position: relative;
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -28.5px;
+            top: 15px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            border: 3px solid var(--bg-color);
+        }
+
+        .item-time { color: var(--primary-color); font-weight: 800; font-size: 0.9rem; margin-bottom: 5px; }
+        .item-title { font-size: 1.1rem; font-weight: bold; margin-bottom: 8px; color: var(--text-main); }
+        .item-desc { font-size: 0.9rem; color: var(--text-light); margin-bottom: 10px; }
+
+        .tag {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        .tag-food { background-color: #ffe8e0; color: var(--secondary-color); }
+        .tag-spot { background-color: #e0f4f8; color: var(--primary-color); }
+        .tag-shop { background-color: #fff0d4; color: #d48b00; }
+        .tag-drive { background-color: #e8faea; color: #28a745; }
+
+        .drive-alert {
+            background-color: #f8f9fa;
+            border-left: 3px solid #ced4da;
+            padding: 8px 10px;
+            font-size: 0.8rem;
+            color: #6c757d;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        /* 注意事項摺疊區塊 */
+        .notes-section {
+            background: #fff;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+        .notes-section h3 {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .notes-section ul {
+            padding-left: 20px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .notes-section li { margin-bottom: 8px; }
+
     </style>
 </head>
 <body>
-    <h1>🌴 濟州島五天四夜美食自駕行 🚗</h1>
 
-    <div class="day-card">
-        <div class="day-title">Day 1：6月16日（二）抵達濟州、直奔超強黑豬肉 </div>
-        <div class="item">
-            <span class="badge b-car">交通</span>
-            <div class="time">17:30 - 19:30</div>
-            <div class="desc">抵達濟州機場，辦理入境，並搭乘機場接駁車前往租車公司取車 。</div>
-        </div>
-        <div class="item">
-            <span class="badge b-food">必吃美食</span>
-            <div class="time">19:30 - 21:30</div>
-            <div class="desc">【晚餐】熟成到（老衡店/咸德店）- 激推第一名的熟成黑豬肉，油花極香，店員會幫忙烤 ！<br>
-            <a class="map-btn" href="https://map.naver.com/v5/search/%EC%88%99%EC%84%B1%EB%8F%84" target="_blank">🗺️ Naver Map 導航</a>
+    <div class="header">
+        <h1>🌴 濟州島五天四夜自駕遊</h1>
+        <p>6/16 - 6/20 ｜ 互動式行程導覽</p>
+    </div>
+
+    <div class="tabs-container">
+        <button class="tab-btn active" onclick="openTab('day1')">Day 1</button>
+        <button class="tab-btn" onclick="openTab('day2')">Day 2</button>
+        <button class="tab-btn" onclick="openTab('day3')">Day 3</button>
+        <button class="tab-btn" onclick="openTab('day4')">Day 4</button>
+        <button class="tab-btn" onclick="openTab('day5')">Day 5</button>
+        <button class="tab-btn" onclick="openTab('notes')" style="background-color: #ffe8e0; color: #ff7b54;">💡 注意事項</button>
+    </div>
+
+    <div class="content-container">
+
+        <div id="day1" class="tab-content active">
+            <div class="day-title">6/16 (二) 抵達與超強黑豬肉</div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="item-time">🕒 17:30 - 19:30</div>
+                    <div class="item-title">抵達濟州與機場取車</div>
+                    <span class="tag tag-drive">🚗 交通自駕</span>
+                    <div class="item-desc">辦理入境手續後，搭乘接駁車前往租車公司取車，準備開啟自駕之旅。</div>
+                </div>
+                <div class="timeline-item" style="border: 2px solid var(--secondary-color);">
+                    <div class="item-time" style="color: var(--secondary-color);">🕒 19:30 - 21:30</div>
+                    <div class="item-title">晚餐：熟成到 (숙성도)</div>
+                    <span class="tag tag-food">🍖 必吃美食</span>
+                    <div class="item-desc">直奔濟州第一名的熟成黑豬肉！油花極香，店員全程代烤，享受完美的第一餐。</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="item-time">🕒 21:30~</div>
+                    <div class="item-title">飯店 Check-in & Olive Young 補貨</div>
+                    <span class="tag tag-shop">🛍️ 逛街購物</span>
+                    <div class="item-desc">入住濟州市區飯店，步行至附近的 Olive Young 進行第一波補貨，或去東門市場吃宵夜。</div>
+                </div>
             </div>
         </div>
-        <div class="item">
-            <span class="badge b-shop">逛街購物</span>
-            <div class="time">21:30~</div>
-            <div class="desc">前往濟州市區飯店 Check-in，順路去濟州市區 Olive Young 補貨第一彈，若還有胃可以去東門市場吃宵夜 。</div>
+
+        <div id="day2" class="tab-content">
+            <div class="day-title">6/17 (三) 絕美西海岸線</div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="item-time">🕒 09:30 - 11:30</div>
+                    <div class="item-title">涯月邑海景咖啡街</div>
+                    <span class="tag tag-spot">☕ 熱門打卡</span>
+                    <div class="item-desc">早晨在海景第一排散步，挑選 Cafe Layered 或 BOMNAL 喝杯咖啡。</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="item-time">🕒 11:30 - 13:00</div>
+                    <div class="item-title">午餐：Nora Bar 痛風海鮮拉麵</div>
+                    <span class="tag tag-food">🍜 必吃美食</span>
+                    <div class="item-desc">面朝大海大口吃著鋪滿螃蟹與蝦子的海鮮拉麵。</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="item-time">🕒 13:30 - 17:30</div>
+                    <div class="item-title">挾才海水浴場 & 新昌風車海岸道路</div>
+                    <span class="tag tag-spot">🌊 絕美海景</span>
+                    <div class="item-desc">踩踩濟州最細軟的藍色海灘，傍晚開車沿著新昌海岸線，欣賞白色大風車與夕陽絕景。</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="item-time">🕒 19:00~</div>
+                    <div class="item-title">西歸浦市場 & 炸雞外送</div>
+                    <span class="tag tag-food">🍗 宵夜推薦</span>
+                    <div class="item-desc">入住西歸浦飯店。去每日偶來市場買些小吃，回飯店叫 BHC 或 橋村炸雞外送配啤酒！</div>
+                </div>
+            </div>
         </div>
+
+        <div id="day3" class="tab-content">
+            <div class="day-title">6/18 (四) 大自然奇觀與海鮮盛宴</div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="item-time">🕒 09:30 - 11:30</div>
+                    <div class="item-title">O'sulloc 綠茶博物館</div>
+                    <span class="tag tag-spot">🍃 療癒景點</span>
+                    <div class="item-desc">漫步整片綠茶園，品嚐濃郁抹茶冰淇淋，順遊旁邊的 Innisfree 濟州小屋。</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="item-time">🕒 12:00 - 16:00</div>
+                    <div class="item-title">大浦柱狀節理帶 (或史努比庭園)</div>
+                    <span class="tag tag-spot">📸 熱門打卡</span>
+                    <div class="item-desc">午餐享用春日部咖哩螃蟹，下午欣賞火山地貌柱狀節理帶，或前往 Snoopy Garden。</div>
+                </div>
+                <div class="timeline-item" style="border: 2px solid var(--secondary-color);">
+                    <div class="item-time" style="color: var(--secondary-color);">🕒 18:30 - 20:30</div>
+                    <div class="item-title">晚餐：三姓穴海鮮湯</div>
+                    <span class="tag tag-food">🐙 必吃美食</span>
+                    <div class="item-desc">返回濟州市區飯店後，晚餐大啖超狂活海鮮鍋！生鮑魚、大章魚滿滿精華。</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="item-time">🕒 20:30~</div>
+                    <div class="item-title">Olive Young 巡禮</div>
+                    <span class="tag tag-shop">🛍️ 逛街購物</span>
+                    <div class="item-desc">吃飽飯在濟州市區散步消化，順便去大型 Olive Young 門市慢慢逛。</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="day4" class="tab-content">
+            <div class="day-title">6/19 (五) 東部跳島秘境與最後採購</div>
+            <div class="timeline">
+                <div class="timeline-item" style="border: 2px solid var(--secondary-color);">
+                    <div class="item-time" style="color: var(--secondary-color);">🕒 08:00 - 09:30</div>
+                    <div class="item-title">早餐：London Bagel Museum Jeju</div>
+                    <span class="tag tag-food">🥯 排隊美食</span>
+                    <div class="item-desc">超人氣英倫風貝果店！提早出發外帶松露貝果和蔥起司貝果在路上享用。</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="item-time">🕒 10:00 - 14:00</div>
+                    <div class="item-title">漫遊牛島 (Udo)</div>
+                    <span class="tag tag-spot">🏝️ 必去跳島</span>
+                    <div class="item-desc">將車停在城山港後搭船登島。租借電動腳踏車環島兜風，必吃超人氣的牛島花生冰淇淋！</div>
+                    <div class="drive-alert">🚢 交通提示：租車通常不能上島，搭船時間約 15 分鐘。</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="item-time">🕒 14:30 - 16:00</div>
+                    <div class="item-title">城山日出峰 & 遲來的午餐</div>
+                    <span class="tag tag-spot">🌋 世界遺產</span>
+                    <div class="item-desc">回到本島後欣賞壯麗火山口，並在周邊品嚐濟州特產「整條無骨烤白帶魚」。</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="item-time">🕒 17:00 - 20:30</div>
+                    <div class="item-title">七星路商圈 & 大型超市伴手禮</div>
+                    <span class="tag tag-shop">🛒 瘋狂採買</span>
+                    <div class="item-desc">前往 E-mart 或 樂天超市 掃貨韓國零食帶回台！</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="day5" class="tab-content">
+            <div class="day-title">6/20 (六) 滿載而歸</div>
+            <div class="timeline">
+                <div class="timeline-item" style="border: 2px solid var(--secondary-color);">
+                    <div class="item-time" style="color: var(--secondary-color);">🕒 08:00 - 09:00</div>
+                    <div class="item-title">早餐：姊妹麵條 (자매국수)</div>
+                    <span class="tag tag-food">🍜 必吃美食</span>
+                    <div class="item-desc">用一碗濃郁熱騰騰的濟州名物「豬肉湯麵」，為這趟旅程畫下完美句點。</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="item-time">🕒 09:00 - 12:20</div>
+                    <div class="item-title">還車與機場登機</div>
+                    <span class="tag tag-drive">🛫 滿載而歸</span>
+                    <div class="item-desc">09:00 前往租車公司還車，10:00 抵達機場辦理登機。搭乘德威航空 TW687 (12:20起飛) 班機返回台北。</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="notes" class="tab-content">
+            <div class="notes-section">
+                <h3>🚗 自駕與導航重要提醒</h3>
+                <ul>
+                    <li><strong>捨棄 Google Maps：</strong> 韓國因法規限制，Google Maps 導航功能幾乎無法使用。強烈建議下載並熟悉 <b>Naver Map</b> 或 <b>KakaoMap</b>。</li>
+                    <li><strong>精準定位秘訣：</strong> 韓國車載導航用「電話號碼」定位非常神準，可將景點或餐廳電話直接輸入導航機。</li>
+                    <li><strong>速限與減速丘：</strong> 濟州島測速照相非常密集，市區經常限速 30-50 公里，且路上有非常多減速丘 (Speed Bump)，請隨時留意導航提示音。</li>
+                </ul>
+            </div>
+            <div class="notes-section">
+                <h3>🛍️ 購物與其他提醒</h3>
+                <ul>
+                    <li><strong>Olive Young 補貨：</strong> 行程中已安排多次補貨機會（Day 1 東門市場附近、Day 3 西歸浦市區、Day 4 蓮洞商圈/七星路）。</li>
+                    <li><strong>牛島交通：</strong> 租賃汽車通常無法上島，請將車輛停放在城山港，登島後再租借電動腳踏車環島。</li>
+                    <li><strong>最後一晚住宿：</strong> 因回程為中午班機，強烈建議最後一晚（Day 4）住回濟州市區，方便隔天從容吃早餐與還車。</li>
+                </ul>
+            </div>
+        </div>
+
     </div>
 
-    <div class="day-card">
-        <div class="day-title">Day 2：6月17日（三）浪漫西海岸、風車夕陽 [cite: 2]</div>
-        <div class="item">
-            <span class="badge b-view">熱門打卡</span>
-            <div class="time">09:30 - 11:30</div>
-            <div class="desc">前往崖月邑海景咖啡街，喝杯 Cafe Layered 或 BOMNAL 咖啡 [cite: 2]。</div>
-        </div>
-        <div class="item">
-            <span class="badge b-food">必吃美食</span>
-            <div class="time">11:30 - 13:00</div>
-            <div class="desc">【午餐】Nora Bar 海鮮拉麵 或 涯月浪漫蝦 [cite: 2]。</div>
-        </div>
-        <div class="item">
-            <span class="badge b-view">熱門打卡</span>
-            <div class="time">13:30 - 17:30</div>
-            <div class="desc">漫步濟州最美藍色海灘「挾才海水浴場」，隨後自駕前往「新昌風車海岸道路」看白色大風車與絕美夕陽 [cite: 2]。</div>
-        </div>
-        <div class="item">
-            <span class="badge b-food">必吃美食</span>
-            <div class="time">18:30~</div>
-            <div class="desc">入住西歸浦飯店後，前往西歸浦每日偶來市場買小吃，回飯店叫 BHC 或 橋村炸雞外送配啤酒 [cite: 2]！</div>
-        </div>
-    </div>
+    <script>
+        function openTab(tabId) {
+            // 隱藏所有內容
+            var contents = document.getElementsByClassName('tab-content');
+            for (var i = 0; i < contents.length; i++) {
+                contents[i].classList.remove('active');
+            }
 
-    <div class="day-card">
-        <div class="day-title">Day 3：6月18日（四）東南部大自然與療癒行程 [cite: 3]</div>
-        <div class="item">
-            <span class="badge b-view">熱門打卡</span>
-            <div class="time">09:30 - 16:00</div>
-            <div class="desc">逛 O'sulloc 綠茶博物館吃抹茶冰淇淋，中午吃春日部咖哩螃蟹或偶來王帶魚，下午去大浦柱狀節理帶或 Snoopy Garden 史努比庭園 [cite: 3]。</div>
-        </div>
-        <div class="item">
-            <span class="badge b-food">必吃美食</span>
-            <div class="time">18:30 - 20:30</div>
-            <div class="desc">返回濟州市區飯店 Check-in 後，晚餐吃三姓穴海鮮湯，生鮑魚、大章魚直接下鍋超鮮美 [cite: 3]！</div>
-        </div>
-        <div class="item">
-            <span class="badge b-shop">逛街購物</span>
-            <div class="time">晚上</div>
-            <div class="desc">西歸浦市區或濟州蓮洞商圈 Olive Young 巡禮 [cite: 3]。</div>
-        </div>
-    </div>
+            // 移除所有標籤的 active 狀態
+            var btns = document.getElementsByClassName('tab-btn');
+            for (var i = 0; i < btns.length; i++) {
+                btns[i].classList.remove('active');
+            }
 
-    <div class="day-card">
-        <div class="day-title">Day 4：6月19日（五）東部絕美景點、排隊貝果 [cite: 3]</div>
-        <div class="item">
-            <span class="badge b-food">必吃美食</span>
-            <div class="time">08:00 - 10:30</div>
-            <div class="desc">【早餐】London Bagel Museum Jeju（建議一早先遠端候位，松露貝果和蔥起司貝果必吃） [cite: 3]。</div>
-        </div>
-        <div class="item">
-            <span class="badge b-view">熱門打卡</span>
-            <div class="time">11:00 - 15:30</div>
-            <div class="desc">欣賞壯麗的城山日出峰火山口，午餐享用濟州特產的整條無骨白帶魚「獨子白帶魚」 [cite: 3, 4]。</div>
-        </div>
-        <div class="item">
-            <span class="badge b-shop">逛街購物</span>
-            <div class="time">16:30 - 20:00</div>
-            <div class="desc">前往蓮洞商圈（Nuwemaru 步行街）或七星路商圈最後的大暴走，接著去樂天超市或 E-mart 大採購伴手禮 [cite: 4]。</div>
-        </div>
-        <div class="item">
-            <span class="badge b-food">必吃美食</span>
-            <div class="time">20:30~</div>
-            <div class="desc">【宵夜】最後機會補吃沒吃到的炸雞（bbq/橋村/BHC） [cite: 4]。</div>
-        </div>
-    </div>
+            // 顯示被點擊的內容，並設定標籤為 active
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+    </script>
 
-    <div class="day-card">
-        <div class="day-title">Day 5：6月20日（六）最後一碗麵、滿載而歸 [cite: 5]</div>
-        <div class="item">
-            <span class="badge b-food">必吃美食</span>
-            <div class="time">08:00 - 09:00</div>
-            <div class="desc">【早餐】姊妹麵條（자매국수）用一碗濃郁不膩的豬肉湯麵作為完美句點 [cite: 5]。</div>
-        </div>
-        <div class="item">
-            <span class="badge b-car">交通</span>
-            <div class="time">09:00 - 12:20</div>
-            <div class="desc">09:00 前往租車公司還車，10:00 抵達機場辦理登機與免稅店補貨，12:20 搭乘德威航空 TW687 班機返回台北 [cite: 5]。</div>
-        </div>
-    </div>
-    
-    <div style="text-align: center; font-size: 0.85rem; color: #999; margin-top: 30px;">
-        💡 溫馨提醒：因韓國法規限制，Google Maps 在當地無法精準導航。出門開車時請務必搭配 Naver Map 或 KakaoMap 使用喔 [cite: 5, 7, 9]！
-    </div>
 </body>
 </html>

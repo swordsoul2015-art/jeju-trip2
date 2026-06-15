@@ -463,7 +463,7 @@ function updateBudgetRate() {
     renderBudget();
 }
 
-// ─── 預設行程資料 (一字不漏完整保留) ─────────────────────────
+// ─── 預設行程資料 (已加入 9.81 Park 重力賽車) ─────────────────────────
 const DEFAULT_DAYS = [
   {
     id:'day1', pill:'6/16 (二) 抵達與黑豬肉盛宴', weather:'☀️ 27° / 22°',
@@ -479,14 +479,15 @@ const DEFAULT_DAYS = [
       { id:'d2c1', time:'09:30 – 11:30', title:'☕ 涯月邑海景咖啡街 & 彩虹海岸道路', tags:[{cls:'t-spot',icon:'fas fa-camera',txt:'熱門打卡'}], desc:'漫步涯月海景第一排，開車順遊浪漫的「無地虹彩海岸道路」，把車停在海邊拍網美照極度療癒！', naver:'https://naver.me/GyeyzXfS', google:'', tip:'推薦朝聖 Cafe Layered 隔壁的特調海景店，或是開車到彩虹道路路邊免費車格停靠拍照。', tipLabel:'拍照建議', highlight:false },
       { id:'d2c2', time:'11:30 – 13:00', title:'🦀 午餐：Nora Bar 痛風海鮮拉麵', tags:[{cls:'t-food',icon:'fas fa-utensils',txt:'必吃'}], desc:'面朝大海吃滿滿螃蟹與大章魚、鮑魚的拉麵，湯頭濃郁到捨不得放碗！', naver:'https://naver.me/FzmVpW8f', google:'', tip:'', tipLabel:'', highlight:true },
       { id:'d2c3', time:'13:30 – 17:30', title:'🌊 挾才海灘 & 新昌風車海岸', tags:[{cls:'t-spot',icon:'fas fa-umbrella-beach',txt:'絕美海景'},{cls:'t-drive',icon:'fas fa-car',txt:'兜風路線'}], desc:'踩最細軟的藍色沙灘，傍晚沿海岸線欣賞大風車配夕陽！', naver:'', google:'', tip:'', tipLabel:'', highlight:false },
-      { id:'d2c4', time:'19:00 以後', title:'🍗 西歸浦市場 & 炸雞外送', tags:[{cls:'t-food',icon:'fas fa-drumstick-bite',txt:'宵夜'}], desc:'入住西歸浦飯店，去每日偶來市場掃小吃，回飯店叫 BHC 或橋村炸雞！', naver:'', google:'', tip:'', tipLabel:'', highlight:false },
+      { id:'d2c4', time:'19:00 以後', title:'🍗 西歸浦市場 & 炸雞外送', tags:[{cls:'t-food',icon:'fas fa-drumstick-bite',txt:'宵疊'}], desc:'入住西歸浦飯店，去每日偶來市場掃小吃，回飯店叫 BHC 或橋村炸雞！', naver:'', google:'', tip:'', tipLabel:'', highlight:false },
     ]
   },
   {
-    id:'day3', pill:'6/18 (四) 大自然奇觀 & 海鮮', weather:'☀️ 28° / 23°',
+    id:'day3', pill:'6/18 (四) 競速體驗 & 大自然奇觀', weather:'☀️ 28° / 23°',
     cards:[
-      { id:'d3c1', time:'09:30 – 11:30', title:"🍵 O'sulloc 綠茶博物館", tags:[{cls:'t-spot',icon:'fas fa-leaf',txt:'療癒景點'}], desc:'漫步廣闊茶園、吃抹茶冰淇淋，順遊 Innisfree 濟州小屋！', naver:'https://naver.me/G145Tj1l', google:'', tip:'', tipLabel:'', highlight:false },
-      { id:'d3c2', time:'12:00 – 16:00', title:'🌋 柱狀節理帶 / 史努比庭園 (彈性二選一)', tags:[{cls:'t-spot',icon:'fas fa-camera',txt:'依天氣抉擇'}], desc:'柱狀節理帶：火山六角石柱自然奇景。史努比庭園：戶外主題園超好拍。', naver:'', google:'', tip:'精準決策：大晴天去柱狀節理帶看陽光折射藍海玄武岩；陰天或飄雨則果斷去史努比庭園，室內精緻展館完全不受天氣影響！', tipLabel:'天氣備案', highlight:false },
+      { id:'d3c0', time:'09:30 – 12:00', title:'🏎️ 9.81 Park 智能重力賽車', tags:[{cls:'t-spot',icon:'fas fa-flag-checkered',txt:'人氣必玩'},{cls:'t-tip',icon:'',txt:'⭐ 建議預約'}], desc:'濟州島超夯的無動力重力賽車！戴上感應手環體驗飆速快感，結束後還能下載專屬的賽車影片。', naver:'https://naver.me/xYQj8e1S', google:'', tip:'建議提前在官網或 App 預約票券以省下排隊時間。賽車體驗需穿著包鞋，且有身高限制喔！', tipLabel:'遊玩須知', highlight:true },
+      { id:'d3c1', time:'12:30 – 14:30', title:"🍵 O'sulloc 綠茶博物館", tags:[{cls:'t-spot',icon:'fas fa-leaf',txt:'療癒景點'}], desc:'體驗完刺激的賽車後，來漫步廣闊茶園、吃抹茶冰淇淋，順遊 Innisfree 濟州小屋！', naver:'https://naver.me/G145Tj1l', google:'', tip:'', tipLabel:'', highlight:false },
+      { id:'d3c2', time:'15:00 – 17:00', title:'🌋 柱狀節理帶 / 史努比庭園 (彈性二選一)', tags:[{cls:'t-spot',icon:'fas fa-camera',txt:'依天氣抉擇'}], desc:'柱狀節理帶：火山六角石柱自然奇景。史努比庭園：戶外主題園超好拍。', naver:'', google:'', tip:'精準決策：大晴天去柱狀節理帶看陽光折射藍海玄武岩；陰天或飄雨則果斷去史努比庭園，室內精緻展館完全不受天氣影響！', tipLabel:'天氣備案', highlight:false },
       { id:'d3c3', time:'18:30 – 20:30', title:'🦑 晚餐：三姓穴活海鮮湯', tags:[{cls:'t-food',icon:'fas fa-utensils',txt:'必吃'}], desc:'大啖超狂活海鮮鍋！生鮑魚、大章魚滿滿精華，湯頭鮮甜到爆！', naver:'https://naver.me/5bXdO7OQ', google:'', tip:'', tipLabel:'', highlight:true },
     ]
   },
@@ -509,7 +510,8 @@ const DEFAULT_DAYS = [
 ];
 
 // ─── 資料管理 ───────────────────────────────────────────────
-const STORAGE_KEY = 'jeju_itinerary_v2';
+// 更改版本號強制重新載入新行程 (避免讀取到舊的 LocalStorage 紀錄)
+const STORAGE_KEY = 'jeju_itinerary_v3'; 
 
 function loadDays() {
   try {

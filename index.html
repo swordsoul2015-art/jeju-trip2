@@ -79,7 +79,7 @@
         .t-spot { background:#e6f7ff; color:#0077aa; }
         .t-shop { background:#fff7e0; color:#b57c00; }
         .t-drive { background:#f0fff4; color:#2e7d32; }
-        .t-tip  { background:#fef9e7; color:#8a6d00; }
+        .t-tip   { background:#fef9e7; color:#8a6d00; }
 
         /* MAP BUTTONS */
         .btns { display:flex; gap:8px; flex-wrap:wrap; padding-top:12px; border-top:1px solid #f0f5f8; }
@@ -317,7 +317,6 @@
     <div id="day4" class="tab-pane"></div>
     <div id="day5" class="tab-pane"></div>
 
-    <!-- BUDGET -->
     <div id="budget" class="tab-pane">
         <div class="budget-hero">
             <h3>💰 總花費（韓元）</h3>
@@ -357,7 +356,6 @@
         <div class="budget-log" id="expenseLog"><div style="text-align:center;padding:20px;color:var(--muted);font-size:0.9rem;">點「＋ 新增」開始記帳</div></div>
     </div>
 
-    <!-- CHECKLIST -->
     <div id="checklist" class="tab-pane">
         <div class="chk-progress">
             <div class="chk-bar-bg"><div class="chk-bar" id="chkBar" style="width:0%"></div></div>
@@ -390,7 +388,6 @@
         </div>
     </div>
 
-    <!-- NOTES -->
     <div id="notes" class="tab-pane">
         <div class="emergency-box">
             <h3><i class="fas fa-phone-alt"></i> 緊急聯絡電話</h3>
@@ -400,21 +397,21 @@
         </div>
         <div class="notes-card danger">
             <h3><i class="fas fa-map-marked-alt" style="color:var(--secondary)"></i> 雙地圖使用守則</h3>
-            <ul>
+            <ul style="list-style-type: none; padding-left: 0;">
                 <li><strong>Google Maps 只能看評論：</strong>韓國法規限制，無法精準導航。</li>
-                <li><strong>Naver Map 才是導航神器：</strong>輸入電話號碼可精準定位。</li>
+                <li><strong>Naver Map 才是導航神器：</strong>輸入電話號碼或地址即可精準定位。</li>
             </ul>
         </div>
         <div class="notes-card warn">
             <h3><i class="fas fa-gas-pump" style="color:var(--warning)"></i> 自駕油費 & 停車</h3>
-            <ul>
+            <ul style="list-style-type: none; padding-left: 0;">
                 <li><strong>確認油種再加油：</strong>휘발유（汽油）/ 경유（柴油）/ LPG</li>
                 <li><strong>還車前加滿油：</strong>租車公司要求滿油歸還。</li>
             </ul>
         </div>
         <div class="notes-card">
             <h3><i class="fas fa-clock" style="color:var(--primary)"></i> 時差提醒</h3>
-            <ul>
+            <ul style="list-style-type: none; padding-left: 0;">
                 <li><strong>韓國比台灣快 1 小時。</strong></li>
                 <li><strong>回程 TW687：</strong>12:20 濟州起飛（韓國時間）</li>
             </ul>
@@ -431,15 +428,15 @@ const DEFAULT_DAYS = [
     id:'day1', pill:'6/16 (二) 抵達與黑豬肉盛宴', weather:'☀️ 27° / 22°',
     cards:[
       { id:'d1c1', time:'17:30 – 19:30', title:'✈️ 抵達濟州 · 機場取車', tags:[{cls:'t-drive',icon:'fas fa-car',txt:'自駕出發'}], desc:'辦理入境手續後，搭乘接駁車前往租車公司取車，準備開啟自駕之旅！', naver:'', google:'', tip:'取車需備：台灣駕照正本 + 國際駕照正本 + 護照 + 信用卡', tipLabel:'取車小提醒', highlight:false },
-      { id:'d1c2', time:'19:30 – 21:30', title:'🐷 晚餐：熟成도 (숙성도)', tags:[{cls:'t-food',icon:'fas fa-fire',txt:'必吃推薦'},{cls:'t-tip',icon:'',txt:'⭐ 預約優先'}], desc:'濟州最頂的熟成黑豬肉！油花爆香，店員全程代烤，配馬格利酒超棒。', naver:'https://naver.me/5qRAV5Fm', google:'', tip:'', tipLabel:'', highlight:true },
-      { id:'d1c3', time:'21:30 以後', title:'🏨 飯店 Check-in & Olive Young', tags:[{cls:'t-shop',icon:'fas fa-shopping-bag',txt:'購物'}], desc:'步行至附近 Olive Young 進行第一波補貨！面膜、防曬、精華液一次買齊。', naver:'', google:'', tip:'Round Lab 防曬 · ISNTREE 保濕精華 · Dr.Jart+ 面膜', tipLabel:'購物推薦', highlight:false },
+      { id:'d1c2', time:'19:30 – 21:30', title:'🐷 晚餐：熟成도 (숙성도) 老衡總店', tags:[{cls:'t-food',icon:'fas fa-fire',txt:'必吃推薦'},{cls:'t-tip',icon:'',txt:'⭐ 遠端排隊'}], desc:'濟州最頂的熟成黑豬肉！油花爆香，店員全程代烤，配馬格利酒超棒。', naver:'https://naver.me/5qRAV5Fm', google:'', tip:'排隊神技：下飛機在機場排隊過海關時，立刻打開 CatchTable App 線上遠端抽號碼牌，取完車開過去剛好進店！', tipLabel:'免排隊密技', highlight:true },
+      { id:'d1c3', time:'21:30 以後', title:'🏨 飯店 Check-in & Olive Young', tags:[{cls:'t-shop',icon:'fas fa-shopping-bag',txt:'購物'}], desc:'步行至附近 Olive Young 進行第一波補貨！面膜、防曬、精華液一次買齊。', naver:'', google:'', tip:'獨家護膚推薦：Round Lab 白樺樹防曬 · ISNTREE 保濕精華 · Dr.Jart+ 補水面膜', tipLabel:'購物推薦', highlight:false },
     ]
   },
   {
     id:'day2', pill:'6/17 (三) 絕美西海岸線', weather:'⛅ 25° / 20°',
     cards:[
-      { id:'d2c1', time:'09:30 – 11:30', title:'☕ 涯月邑海景咖啡街', tags:[{cls:'t-spot',icon:'fas fa-camera',txt:'熱門打卡'}], desc:'推薦 Cafe Layered 或 BOMNAL 喝咖啡，海景第一排超療癒。', naver:'https://naver.me/GyeyzXfS', google:'', tip:'', tipLabel:'', highlight:false },
-      { id:'d2c2', time:'11:30 – 13:00', title:'🦀 午餐：Nora Bar 痛風海鮮拉麵', tags:[{cls:'t-food',icon:'fas fa-utensils',txt:'必吃'}], desc:'面朝大海吃滿滿螃蟹與大蝦的拉麵，湯頭濃郁到捨不得放碗！', naver:'https://naver.me/FzmVpW8f', google:'', tip:'', tipLabel:'', highlight:true },
+      { id:'d2c1', time:'09:30 – 11:30', title:'☕ 涯月邑海景咖啡街 & 彩虹海岸道路', tags:[{cls:'t-spot',icon:'fas fa-camera',txt:'熱門打卡'}], desc:'漫步涯月海景第一排，開車順遊浪漫的「無地虹彩海岸道路」，把車停在海邊拍網美照極度療癒！', naver:'https://naver.me/GyeyzXfS', google:'', tip:'推薦朝聖 Cafe Layered 隔壁的特調海景店，或是開車到彩虹道路路邊免費車格停靠拍照。', tipLabel:'拍照建議', highlight:false },
+      { id:'d2c2', time:'11:30 – 13:00', title:'🦀 午餐：Nora Bar 痛風海鮮拉麵', tags:[{cls:'t-food',icon:'fas fa-utensils',txt:'必吃'}], desc:'面朝大海吃滿滿螃蟹與大章魚、鮑魚的拉麵，湯頭濃郁到捨不得放碗！', naver:'https://naver.me/FzmVpW8f', google:'', tip:'', tipLabel:'', highlight:true },
       { id:'d2c3', time:'13:30 – 17:30', title:'🌊 挾才海灘 & 新昌風車海岸', tags:[{cls:'t-spot',icon:'fas fa-umbrella-beach',txt:'絕美海景'},{cls:'t-drive',icon:'fas fa-car',txt:'兜風路線'}], desc:'踩最細軟的藍色沙灘，傍晚沿海岸線欣賞大風車配夕陽！', naver:'', google:'', tip:'', tipLabel:'', highlight:false },
       { id:'d2c4', time:'19:00 以後', title:'🍗 西歸浦市場 & 炸雞外送', tags:[{cls:'t-food',icon:'fas fa-drumstick-bite',txt:'宵夜'}], desc:'入住西歸浦飯店，去每日偶來市場掃小吃，回飯店叫 BHC 或橋村炸雞！', naver:'', google:'', tip:'', tipLabel:'', highlight:false },
     ]
@@ -448,17 +445,17 @@ const DEFAULT_DAYS = [
     id:'day3', pill:'6/18 (四) 大自然奇觀 & 海鮮', weather:'☀️ 28° / 23°',
     cards:[
       { id:'d3c1', time:'09:30 – 11:30', title:"🍵 O'sulloc 綠茶博物館", tags:[{cls:'t-spot',icon:'fas fa-leaf',txt:'療癒景點'}], desc:'漫步廣闊茶園、吃抹茶冰淇淋，順遊 Innisfree 濟州小屋！', naver:'https://naver.me/G145Tj1l', google:'', tip:'', tipLabel:'', highlight:false },
-      { id:'d3c2', time:'12:00 – 16:00', title:'🌋 柱狀節理帶 或 史努比庭園', tags:[{cls:'t-spot',icon:'fas fa-camera',txt:'二選一'}], desc:'柱狀節理帶：火山六角石柱自然奇景。史努比庭園：戶外主題園超好拍。午餐可選春日部咖哩螃蟹！', naver:'', google:'', tip:'', tipLabel:'', highlight:false },
+      { id:'d3c2', time:'12:00 – 16:00', title:'🌋 柱狀節理帶 / 史努比庭園 (彈性二選一)', tags:[{cls:'t-spot',icon:'fas fa-camera',txt:'依天氣抉擇'}], desc:'柱狀節理帶：火山六角石柱自然奇景。史努比庭園：戶外主題園超好拍。', naver:'', google:'', tip:'精準決策：大晴天去柱狀節理帶看陽光折射藍海玄武岩；陰天或飄雨則果斷去史努比庭園，室內精緻展館完全不受天氣影響！', tipLabel:'天氣備案', highlight:false },
       { id:'d3c3', time:'18:30 – 20:30', title:'🦑 晚餐：三姓穴活海鮮湯', tags:[{cls:'t-food',icon:'fas fa-utensils',txt:'必吃'}], desc:'大啖超狂活海鮮鍋！生鮑魚、大章魚滿滿精華，湯頭鮮甜到爆！', naver:'https://naver.me/5bXdO7OQ', google:'', tip:'', tipLabel:'', highlight:true },
     ]
   },
   {
     id:'day4', pill:'6/19 (五) 東部秘境 & 採購', weather:'🌤 26° / 21°',
     cards:[
-      { id:'d4c1', time:'08:00 – 09:30', title:'🥯 早餐：London Bagel Museum', tags:[{cls:'t-food',icon:'fas fa-bread-slice',txt:'排隊名店'},{cls:'t-tip',icon:'',txt:'⏰ 提早出發'}], desc:'超人氣英倫風貝果！松露牛肉 & 蔥起司貝果必點，外帶野餐超愜意。', naver:'https://naver.me/FLh2H6jX', google:'', tip:'', tipLabel:'', highlight:true },
-      { id:'d4c2', time:'10:00 – 14:00', title:'🚢 牛島 (Udo) 跳島一日遊', tags:[{cls:'t-spot',icon:'fas fa-ship',txt:'必去跳島'},{cls:'t-food',icon:'fas fa-ice-cream',txt:'花生冰淇淋'}], desc:'城山港搭船15分鐘，租電動腳踏車環島，藍綠色海水超美！牛島花生冰淇淋必吃。', naver:'https://naver.me/FxLqM2M1', google:'', tip:'船票 ₩5,900 單程，腳踏車 ₩10,000/小時', tipLabel:'牛島交通資訊', highlight:false },
+      { id:'d4c1', time:'08:00 – 09:30', title:'🥯 早餐：London Bagel Museum 濟州店', tags:[{cls:'t-food',icon:'fas fa-bread-slice',txt:'排隊名店'},{cls:'t-tip',icon:'',txt:'⏰ 提早出發'}], desc:'超人氣英倫風貝果！松露牛肉 & 蔥起司貝果必點，旁邊就是 Cafe Layered 東部店，一次雙殺！', naver:'https://naver.me/FLh2H6jX', google:'', tip:'', tipLabel:'', highlight:true },
+      { id:'d4c2', time:'10:00 – 14:00', title:'🚢 牛島 (Udo) 跳島一日遊', tags:[{cls:'t-spot',icon:'fas fa-ship',txt:'必去跳島'},{cls:'t-food',icon:'fas fa-ice-cream',txt:'花生冰淇淋'}], desc:'城山港搭船15分鐘，租電動腳踏車環島，藍綠色海水超美！牛島花生冰淇淋必吃。', naver:'https://naver.me/FxLqM2M1', google:'', tip:'自駕禁忌：租賃車無法開上船運去牛島。請將車停在城山港公有停車場。抵達牛島後，在港口租用電動三輪小車（需備國際駕照）或電動單車環島。', tipLabel:'牛島自駕交通規則', highlight:false },
       { id:'d4c3', time:'14:30 – 16:00', title:'🏔 城山日出峰 & 白帶魚午餐', tags:[{cls:'t-spot',icon:'fas fa-mountain',txt:'世界遺產'}], desc:'壯麗火山口景色，並品嚐濟州名物「整條無骨烤白帶魚」！', naver:'', google:'', tip:'', tipLabel:'', highlight:false },
-      { id:'d4c4', time:'17:00 – 20:30', title:'🛍 七星路 & 超市掃貨', tags:[{cls:'t-shop',icon:'fas fa-shopping-cart',txt:'最後採購'}], desc:'美妝巡禮後，前往 E-mart 或樂天超市掃零食、泡麵、紫菜、柚子茶帶回台！', naver:'', google:'', tip:'', tipLabel:'', highlight:false },
+      { id:'d4c4', time:'17:00 – 20:30', title:'🛍 七星路 & 超市最後掃貨', tags:[{cls:'t-shop',icon:'fas fa-shopping-cart',txt:'最後採購'}], desc:'美妝巡禮後，前往 E-mart 或樂天超市掃零食、泡麵、紫菜、柚子茶帶回台！', naver:'', google:'', tip:'', tipLabel:'', highlight:false },
     ]
   },
   {
@@ -692,8 +689,8 @@ setInterval(updateClock, 1000);
 
 // ─── 旅程進度 ────────────────────────────────────────────────
 function updateProgress() {
-  const start = new Date('2025-06-16T00:00:00+09:00');
-  const end   = new Date('2025-06-20T23:59:59+09:00');
+  const start = new Date('2026-06-16T00:00:00+09:00'); // 修正為 2026 年
+  const end   = new Date('2026-06-20T23:59:59+09:00'); // 修正為 2026 年
   const now   = new Date();
   let pct = 0, txt = '旅程即將開始 🎒';
   if (now >= start && now <= end) {
@@ -738,7 +735,9 @@ function saveExp() { localStorage.setItem('jeju_expenses', JSON.stringify(expens
 function renderBudget() {
   const total = expenses.reduce((s,e)=>s+e.amt,0);
   document.getElementById('bTotal').textContent = '₩'+total.toLocaleString();
-  document.getElementById('bSubtitle').textContent = `約 NT$ ${Math.round(total/36).toLocaleString()} · 每人 NT$ ${Math.round(total/36/2).toLocaleString()}`;
+  
+  // 匯率優化：使用 41 作為台幣換算分母，數據更精準
+  document.getElementById('bSubtitle').textContent = `約 NT$ ${Math.round(total/41).toLocaleString()} · 每人 NT$ ${Math.round(total/41/2).toLocaleString()}`;
   const byCat={};
   expenses.forEach(e=>{byCat[e.cat]=(byCat[e.cat]||0)+e.amt;});
   const bBar=document.getElementById('bBar'), bLegend=document.getElementById('bLegend');

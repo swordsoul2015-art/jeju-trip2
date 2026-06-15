@@ -3,481 +3,953 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌴 濟州島五天四夜林家自駕遊 🚗</title>
+    <title>🌴 濟州島林家自駕遊</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #00a8cc; 
-            --secondary: #ff7b54; 
-            --bg-color: #f8f9fa; 
-            --text-main: #2c3e50;
-            --text-light: #7f8c8d;
-            --card-bg: #ffffff;
-            --tab-bg: #e0f4f8;
-            --naver-green: #03c75a;
+            --primary: #00a8cc;
+            --primary-dark: #007a99;
+            --secondary: #ff7b54;
+            --accent: #ffc947;
+            --bg: #f0f7fa;
+            --card: #ffffff;
+            --text: #1a2d3d;
+            --muted: #6b8799;
+            --naver: #03c75a;
+            --border: #e2eef3;
+            --success: #34c06d;
+            --warning: #ff9f43;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            background: var(--bg);
+            color: var(--text);
             line-height: 1.6;
+            padding-bottom: 40px;
         }
 
-        .header {
-            text-align: center;
-            padding: 25px 15px 15px;
-            background: linear-gradient(135deg, #ffffff 0%, #e0f4f8 100%);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .header h1 { color: var(--primary); font-size: 1.5rem; margin-bottom: 8px; font-weight: 800; }
-        .header p { color: var(--text-light); font-size: 0.9rem; }
-
-        /* 時鐘小工具 */
-        .time-widget {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 15px;
-            padding: 10px;
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-        .time-zone { display: flex; flex-direction: column; align-items: center; }
-        .time-val { font-size: 1.1rem; color: var(--primary); font-variant-numeric: tabular-nums; }
-        .time-label { color: var(--text-light); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
-
-        /* 導覽列標籤 */
-        .tabs-container {
-            display: flex;
-            overflow-x: auto;
-            white-space: nowrap;
-            background-color: #fff;
-            padding: 12px 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-            -webkit-overflow-scrolling: touch;
-            border-bottom: 1px solid #eee;
-        }
-        .tabs-container::-webkit-scrollbar { display: none; }
-
-        .tab-btn {
-            background-color: var(--tab-bg);
-            color: var(--primary);
-            border: none;
-            padding: 8px 18px;
-            margin-right: 12px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .tab-btn.active {
-            background-color: var(--primary);
-            color: #fff;
-            box-shadow: 0 4px 10px rgba(0, 168, 204, 0.3);
-            transform: translateY(-2px);
-        }
-
-        /* 內容區塊 */
-        .content-container {
-            padding: 20px 15px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .tab-content { display: none; animation: fadeIn 0.4s ease; }
-        .tab-content.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-
-        .day-title {
-            background: linear-gradient(135deg, var(--primary) 0%, #007a99 100%);
+        /* ===== HERO HEADER ===== */
+        .hero {
+            background: linear-gradient(160deg, #00a8cc 0%, #007a99 60%, #005f78 100%);
             color: white;
-            display: inline-block;
-            padding: 8px 18px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 1rem;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 10px rgba(0, 168, 204, 0.3);
-        }
-
-        /* 時間軸與卡片設計 */
-        .timeline {
-            border-left: 3px dashed #bde4f0;
-            margin-left: 12px;
-            padding-left: 25px;
+            padding: 28px 20px 20px;
             position: relative;
+            overflow: hidden;
         }
-
-        .timeline-item {
-            position: relative;
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 16px;
-            margin-bottom: 25px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.04);
-            border: 1px solid #f0f0f0;
-            transition: transform 0.2s;
-        }
-        .timeline-item:active { transform: scale(0.98); }
-
-        .timeline-item::before {
+        .hero::before {
             content: '';
-            position: absolute;
-            left: -35.5px;
-            top: 20px;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: var(--card-bg);
-            border: 4px solid var(--primary);
-            box-shadow: 0 0 0 3px var(--bg-color);
+            position: absolute; top: -40px; right: -40px;
+            width: 180px; height: 180px; border-radius: 50%;
+            background: rgba(255,255,255,0.06);
+        }
+        .hero::after {
+            content: '';
+            position: absolute; bottom: -20px; left: 30px;
+            width: 100px; height: 100px; border-radius: 50%;
+            background: rgba(255,255,255,0.04);
+        }
+        .hero-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+        .hero h1 { font-size: 1.45rem; font-weight: 800; letter-spacing: -0.3px; }
+        .hero-sub { font-size: 0.85rem; opacity: 0.8; margin-top: 4px; }
+        .hero-badge {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 20px; padding: 5px 12px; font-size: 0.75rem; font-weight: 700;
+            backdrop-filter: blur(4px); white-space: nowrap;
         }
 
-        .item-time { color: var(--primary); font-weight: 800; font-size: 0.9rem; margin-bottom: 8px; display: flex; align-items: center; gap: 5px; }
-        .item-title { font-size: 1.15rem; font-weight: 800; margin-bottom: 8px; color: var(--text-main); }
-        .item-desc { font-size: 0.95rem; color: var(--text-light); margin-bottom: 15px; }
+        /* 時鐘 */
+        .clock-row {
+            display: flex; gap: 12px;
+            background: rgba(0,0,0,0.15);
+            border-radius: 14px; padding: 12px 16px;
+            margin-top: 4px;
+        }
+        .clock-box { flex: 1; text-align: center; }
+        .clock-box .tz-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin-bottom: 2px; }
+        .clock-box .tz-time { font-size: 1.35rem; font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: -0.5px; }
+        .clock-box .tz-date { font-size: 0.72rem; opacity: 0.65; margin-top: 2px; }
+        .clock-divider { width: 1px; background: rgba(255,255,255,0.2); margin: 4px 0; }
+
+        /* 旅程進度條 */
+        .trip-progress {
+            background: rgba(0,0,0,0.12); border-radius: 10px; padding: 12px 16px; margin-top: 12px;
+        }
+        .progress-label { display: flex; justify-content: space-between; font-size: 0.75rem; opacity: 0.8; margin-bottom: 8px; }
+        .progress-bar-bg { background: rgba(255,255,255,0.15); border-radius: 99px; height: 6px; }
+        .progress-bar-fill { background: var(--accent); border-radius: 99px; height: 6px; transition: width 0.8s ease; }
+        .progress-days { display: flex; justify-content: space-between; margin-top: 8px; }
+        .progress-day {
+            flex: 1; text-align: center; font-size: 0.65rem; opacity: 0.6;
+            font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .progress-day.today { opacity: 1; color: var(--accent); }
+
+        /* ===== NAV TABS ===== */
+        .tabs-wrap {
+            background: white; border-bottom: 1px solid var(--border);
+            position: sticky; top: 0; z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+        .tabs {
+            display: flex; overflow-x: auto; -webkit-overflow-scrolling: touch;
+            padding: 10px 12px; gap: 8px; scrollbar-width: none;
+        }
+        .tabs::-webkit-scrollbar { display: none; }
+        .tab {
+            display: flex; align-items: center; gap: 5px;
+            padding: 7px 14px; border-radius: 20px; border: none;
+            font-size: 0.82rem; font-weight: 700; cursor: pointer;
+            white-space: nowrap; transition: all 0.25s;
+            background: #f0f7fa; color: var(--primary);
+        }
+        .tab.active {
+            background: var(--primary); color: white;
+            box-shadow: 0 3px 10px rgba(0,168,204,0.35);
+            transform: translateY(-1px);
+        }
+        .tab-checklist { background: #f0fff5; color: var(--success); }
+        .tab-checklist.active { background: var(--success); color: white; box-shadow: 0 3px 10px rgba(52,192,109,0.35); }
+        .tab-notes { background: #fff4ef; color: var(--secondary); }
+        .tab-notes.active { background: var(--secondary); color: white; box-shadow: 0 3px 10px rgba(255,123,84,0.35); }
+        .tab-budget { background: #fff9ef; color: var(--warning); }
+        .tab-budget.active { background: var(--warning); color: white; box-shadow: 0 3px 10px rgba(255,159,67,0.35); }
+
+        /* ===== CONTENT ===== */
+        .content { max-width: 600px; margin: 0 auto; padding: 20px 15px; }
+        .tab-pane { display: none; animation: up 0.35s ease; }
+        .tab-pane.active { display: block; }
+        @keyframes up { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+
+        .day-header {
+            display: flex; align-items: center; gap: 10px; margin-bottom: 22px;
+        }
+        .day-pill {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white; padding: 7px 18px; border-radius: 20px;
+            font-weight: 800; font-size: 0.95rem;
+            box-shadow: 0 3px 10px rgba(0,168,204,0.3);
+        }
+        .day-weather { margin-left: auto; }
+        .weather-mini {
+            background: white; border: 1px solid var(--border);
+            border-radius: 12px; padding: 6px 12px;
+            display: flex; align-items: center; gap: 6px;
+            font-size: 0.8rem; color: var(--muted); font-weight: 600;
+        }
+
+        /* ===== TIMELINE ===== */
+        .timeline { border-left: 3px dashed #c5dfe9; margin-left: 10px; padding-left: 22px; }
+        .card {
+            background: white; border-radius: 16px; padding: 18px;
+            margin-bottom: 20px; border: 1px solid var(--border);
+            box-shadow: 0 3px 12px rgba(0,0,0,0.04);
+            position: relative; transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .card:active { transform: scale(0.985); box-shadow: 0 1px 5px rgba(0,0,0,0.04); }
+        .card.highlight { border: 2px solid var(--secondary); }
+        .card::before {
+            content: '';
+            position: absolute; left: -31px; top: 18px;
+            width: 16px; height: 16px; border-radius: 50%;
+            background: white; border: 3.5px solid var(--primary);
+            box-shadow: 0 0 0 3px var(--bg);
+        }
+        .card.highlight::before { border-color: var(--secondary); }
+
+        .card-time { color: var(--primary); font-weight: 800; font-size: 0.82rem; margin-bottom: 6px; display: flex; align-items: center; gap: 5px; }
+        .card.highlight .card-time { color: var(--secondary); }
+        .card-title { font-size: 1.08rem; font-weight: 800; margin-bottom: 6px; }
+        .card-desc { font-size: 0.9rem; color: var(--muted); margin-bottom: 14px; }
 
         /* 標籤 */
-        .tag-group { margin-bottom: 10px; }
+        .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
         .tag {
-            display: inline-flex; align-items: center; gap: 4px;
-            padding: 4px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: bold; margin-right: 6px; margin-bottom: 6px;
+            display: inline-flex; align-items: center; gap: 3px;
+            padding: 3px 9px; border-radius: 6px; font-size: 0.72rem; font-weight: 700;
         }
-        .tag-food { background-color: #fff0eb; color: var(--secondary); }
-        .tag-spot { background-color: #e6f7ff; color: var(--primary); }
-        .tag-shop { background-color: #fff7e6; color: #d48b00; }
-        .tag-drive { background-color: #f6ffed; color: #389e0d; }
+        .t-food { background: #fff0eb; color: #d45b2d; }
+        .t-spot { background: #e6f7ff; color: #0077aa; }
+        .t-shop { background: #fff7e0; color: #b57c00; }
+        .t-drive { background: #f0fff4; color: #2e7d32; }
+        .t-tip { background: #fef9e7; color: #8a6d00; }
 
-        /* 按鈕群組 */
-        .action-buttons {
-            display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px; border-top: 1px solid #f0f0f0; padding-top: 15px;
+        /* 按鈕 */
+        .btns { display: flex; gap: 8px; flex-wrap: wrap; padding-top: 12px; border-top: 1px solid #f0f5f8; }
+        .btn {
+            flex: 1; min-width: 110px; padding: 9px 10px;
+            border-radius: 9px; font-size: 0.8rem; font-weight: 700;
+            text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 6px;
+            transition: opacity 0.2s, transform 0.15s;
         }
-        .btn-map {
-            display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-            flex: 1; min-width: 120px; padding: 8px 12px; border-radius: 8px;
-            font-size: 0.85rem; font-weight: 600; text-decoration: none; transition: background 0.2s;
+        .btn:active { opacity: 0.8; transform: scale(0.97); }
+        .btn-naver { background: rgba(3,199,90,0.1); color: #02a84c; border: 1px solid rgba(3,199,90,0.22); }
+        .btn-google { background: #f5f7ff; color: #4285f4; border: 1px solid #dde5ff; }
+        .btn-kakao { background: #fef9e1; color: #6a4c00; border: 1px solid #f0e08a; }
+
+        /* Tips 折疊 */
+        .tip-toggle {
+            display: flex; align-items: center; gap: 6px;
+            background: #fffbf0; border: 1px solid #f0e4b0;
+            border-radius: 9px; padding: 8px 12px;
+            font-size: 0.8rem; font-weight: 600; color: #8a6500;
+            cursor: pointer; width: 100%; text-align: left; margin-bottom: 0;
         }
-        .btn-naver { background-color: rgba(3, 199, 90, 0.1); color: var(--naver-green); border: 1px solid rgba(3, 199, 90, 0.2); }
-        .btn-naver:active { background-color: rgba(3, 199, 90, 0.2); }
-        .btn-google { background-color: #f8f9fa; color: #4285F4; border: 1px solid #e8eaed; }
-        .btn-google:active { background-color: #e8eaed; }
+        .tip-body { background: #fffbf0; border: 1px solid #f0e4b0; border-top: none; border-radius: 0 0 9px 9px; padding: 10px 14px; font-size: 0.82rem; color: #7a5a00; display: none; }
+        .tip-body.open { display: block; }
 
-        /* 備註與打包清單區塊 */
-        .notes-section {
-            background: #fff; border-radius: 16px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px;
-            border-top: 4px solid var(--secondary);
+        /* ===== 預算追蹤 ===== */
+        .budget-hero {
+            background: linear-gradient(135deg, var(--warning) 0%, #e8820f 100%);
+            border-radius: 16px; padding: 20px; color: white; margin-bottom: 20px;
+            box-shadow: 0 4px 16px rgba(255,159,67,0.35);
         }
-        .notes-section h3 { color: var(--text-main); font-size: 1.1rem; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
-        .notes-section ul { padding-left: 20px; font-size: 0.95rem; color: var(--text-light); }
-        .notes-section li { margin-bottom: 10px; }
+        .budget-hero h3 { font-size: 0.8rem; opacity: 0.85; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px; }
+        .budget-total { font-size: 2.2rem; font-weight: 800; letter-spacing: -1px; }
+        .budget-sub { font-size: 0.82rem; opacity: 0.8; margin-top: 4px; }
+        .budget-bar-wrap { margin-top: 14px; }
+        .budget-bar-row { display: flex; height: 8px; border-radius: 99px; overflow: hidden; gap: 2px; }
+        .bbar { border-radius: 3px; transition: width 0.6s ease; }
+        .budget-legend { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+        .bl { display: flex; align-items: center; gap: 5px; font-size: 0.72rem; opacity: 0.9; }
+        .bl-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
 
-        /* 打包清單專屬樣式 */
-        .checklist-group { background: #fff; border-radius: 16px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid #f0f0f0; }
-        .checklist-group h4 { color: var(--primary); margin-bottom: 15px; font-size: 1.05rem; display: flex; align-items: center; gap: 8px; border-bottom: 2px solid #f4f9f9; padding-bottom: 10px; }
-        .check-item { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; cursor: pointer; user-select: none; }
-        .check-item input[type="checkbox"] { width: 22px; height: 22px; accent-color: var(--primary); cursor: pointer; }
-        .check-item span { font-size: 1rem; color: var(--text-main); transition: all 0.2s; }
-        .check-item input[type="checkbox"]:checked + span { text-decoration: line-through; color: #adb5bd; }
+        .budget-cats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        .budget-cat {
+            background: white; border-radius: 12px; padding: 14px;
+            border: 1px solid var(--border); text-align: center;
+        }
+        .budget-cat-icon { font-size: 1.4rem; margin-bottom: 4px; }
+        .budget-cat-name { font-size: 0.72rem; color: var(--muted); margin-bottom: 4px; }
+        .budget-cat-amt { font-size: 1.1rem; font-weight: 800; color: var(--text); }
+        .budget-cat-per { font-size: 0.7rem; color: var(--muted); }
 
+        .budget-log-title { font-size: 0.9rem; font-weight: 800; margin-bottom: 12px; color: var(--text); display: flex; align-items: center; justify-content: space-between; }
+        .budget-add-btn { background: var(--primary); color: white; border: none; border-radius: 8px; padding: 5px 12px; font-size: 0.78rem; font-weight: 700; cursor: pointer; }
+        .budget-log { display: flex; flex-direction: column; gap: 8px; }
+        .blog-item {
+            background: white; border-radius: 10px; padding: 12px 14px;
+            display: flex; align-items: center; gap: 10px;
+            border: 1px solid var(--border);
+        }
+        .blog-emoji { font-size: 1.2rem; width: 36px; height: 36px; background: var(--bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .blog-info { flex: 1; }
+        .blog-name { font-size: 0.88rem; font-weight: 700; }
+        .blog-day { font-size: 0.72rem; color: var(--muted); }
+        .blog-amt { font-size: 0.95rem; font-weight: 800; color: var(--text); }
+        .blog-del { background: none; border: none; color: #ccc; cursor: pointer; font-size: 1rem; padding: 4px; }
+        .blog-del:active { color: #e74c3c; }
+
+        /* 新增記帳表單 */
+        .add-form {
+            background: white; border-radius: 14px; padding: 16px;
+            border: 1.5px solid var(--primary); margin-bottom: 16px;
+            display: none;
+        }
+        .add-form.open { display: block; }
+        .add-form h4 { font-size: 0.88rem; font-weight: 700; margin-bottom: 12px; color: var(--primary); }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+        .form-input {
+            width: 100%; padding: 9px 11px; border: 1px solid var(--border);
+            border-radius: 9px; font-size: 0.85rem; color: var(--text);
+            background: #fafcfd; font-family: inherit;
+        }
+        .form-input:focus { outline: none; border-color: var(--primary); }
+        .form-select {
+            width: 100%; padding: 9px 11px; border: 1px solid var(--border);
+            border-radius: 9px; font-size: 0.85rem; color: var(--text);
+            background: #fafcfd; font-family: inherit;
+        }
+        .form-btns { display: flex; gap: 8px; margin-top: 10px; }
+        .form-save { flex: 1; background: var(--primary); color: white; border: none; border-radius: 9px; padding: 9px; font-size: 0.85rem; font-weight: 700; cursor: pointer; }
+        .form-cancel { background: #f0f5f8; color: var(--muted); border: none; border-radius: 9px; padding: 9px 16px; font-size: 0.85rem; font-weight: 700; cursor: pointer; }
+
+        /* ===== 行李清單 ===== */
+        .checklist-section {
+            background: white; border-radius: 16px; padding: 18px;
+            margin-bottom: 16px; border: 1px solid var(--border);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+        .checklist-section h4 {
+            display: flex; align-items: center; gap: 8px;
+            font-size: 1rem; color: var(--text); margin-bottom: 14px;
+            padding-bottom: 10px; border-bottom: 1.5px solid #f0f6f9;
+        }
+        .chk-label { display: flex; align-items: center; gap: 11px; margin-bottom: 13px; cursor: pointer; user-select: none; }
+        .chk-label input[type="checkbox"] { width: 21px; height: 21px; accent-color: var(--primary); cursor: pointer; flex-shrink: 0; }
+        .chk-label span { font-size: 0.95rem; transition: all 0.2s; }
+        .chk-label input:checked + span { text-decoration: line-through; color: #b0bec5; }
+        .chk-progress { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+        .chk-pct { font-size: 0.78rem; color: var(--muted); font-weight: 600; min-width: 35px; text-align: right; }
+        .chk-bar-bg { flex: 1; height: 5px; background: #e8f4f8; border-radius: 99px; }
+        .chk-bar { height: 5px; background: var(--success); border-radius: 99px; transition: width 0.4s ease; }
+
+        /* ===== 必看提示 ===== */
+        .notes-card {
+            background: white; border-radius: 16px; padding: 18px;
+            margin-bottom: 14px; border: 1px solid var(--border);
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+        .notes-card.warn { border-left-color: var(--warning); }
+        .notes-card.danger { border-left-color: var(--secondary); }
+        .notes-card h3 { font-size: 1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 7px; }
+        .notes-card ul { padding-left: 16px; }
+        .notes-card li { font-size: 0.9rem; color: var(--muted); margin-bottom: 9px; }
+        .notes-card li strong { color: var(--text); }
+        .emergency-box {
+            background: linear-gradient(135deg, #fff0eb, #ffe4d8);
+            border: 1.5px solid #ffcab4;
+            border-radius: 14px; padding: 16px; margin-bottom: 14px;
+        }
+        .emergency-box h3 { font-size: 0.95rem; color: #c0420a; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+        .phone-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+        .phone-label { font-size: 0.82rem; color: #8b4513; font-weight: 600; }
+        .phone-num { font-size: 1rem; font-weight: 800; color: #c0420a; text-decoration: none; }
+
+        /* ===== 行程總覽 ===== */
+        .overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        .ov-card {
+            background: white; border-radius: 14px; padding: 14px;
+            border: 1px solid var(--border); text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+        .ov-num { font-size: 1.8rem; font-weight: 800; color: var(--primary); }
+        .ov-label { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+
+        /* ===== Toast 通知 ===== */
+        .toast {
+            position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px);
+            background: #1a2d3d; color: white; padding: 10px 20px; border-radius: 99px;
+            font-size: 0.82rem; font-weight: 600; opacity: 0; transition: all 0.3s;
+            z-index: 9999; pointer-events: none; white-space: nowrap;
+        }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>🌴 濟州島林家自駕好棒棒</h1>
-        <p>6/16 - 6/20 ｜濟州島 </p>
-        
-        <div class="time-widget">
-            <div class="time-zone">
-                <span class="time-label">🇹🇼 台灣時間</span>
-                <span class="time-val" id="time-tw">--:--</span>
-            </div>
-            <div style="border-left: 1px solid #eee; margin: 0 5px;"></div>
-            <div class="time-zone">
-                <span class="time-label">🇰🇷 濟州島時間</span>
-                <span class="time-val" id="time-kr">--:--</span>
-            </div>
+<!-- ===== HERO ===== -->
+<div class="hero">
+    <div class="hero-top">
+        <div>
+            <h1>🌴 濟州島林家自駕遊</h1>
+            <div class="hero-sub">6月16日 – 6月20日 · 五天四夜</div>
+        </div>
+        <span class="hero-badge">✈️ TW687</span>
+    </div>
+
+    <div class="clock-row">
+        <div class="clock-box">
+            <div class="tz-label">🇹🇼 台灣</div>
+            <div class="tz-time" id="tw-time">--:--</div>
+            <div class="tz-date" id="tw-date">--</div>
+        </div>
+        <div class="clock-divider"></div>
+        <div class="clock-box">
+            <div class="tz-label">🇰🇷 濟州島</div>
+            <div class="tz-time" id="kr-time">--:--</div>
+            <div class="tz-date" id="kr-date">--</div>
         </div>
     </div>
 
-    <div class="tabs-container">
-        <button class="tab-btn active" onclick="openTab('day1')"><i class="fas fa-plane-arrival"></i> D1</button>
-        <button class="tab-btn" onclick="openTab('day2')"><i class="fas fa-water"></i> D2</button>
-        <button class="tab-btn" onclick="openTab('day3')"><i class="fas fa-leaf"></i> D3</button>
-        <button class="tab-btn" onclick="openTab('day4')"><i class="fas fa-ship"></i> D4</button>
-        <button class="tab-btn" onclick="openTab('day5')"><i class="fas fa-plane-departure"></i> D5</button>
-        <button class="tab-btn" onclick="openTab('checklist')" style="background-color: #f6ffed; color: #389e0d;"><i class="fas fa-tasks"></i> 行李</button>
-        <button class="tab-btn" onclick="openTab('notes')" style="background-color: #fff0eb; color: var(--secondary);"><i class="fas fa-lightbulb"></i> 必看</button>
+    <div class="trip-progress">
+        <div class="progress-label">
+            <span>🗓️ 旅程進度</span>
+            <span id="trip-status">計算中…</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="trip-bar" style="width:0%"></div>
+        </div>
+        <div class="progress-days">
+            <span class="progress-day" data-day="1">D1<br>6/16</span>
+            <span class="progress-day" data-day="2">D2<br>6/17</span>
+            <span class="progress-day" data-day="3">D3<br>6/18</span>
+            <span class="progress-day" data-day="4">D4<br>6/19</span>
+            <span class="progress-day" data-day="5">D5<br>6/20</span>
+        </div>
+    </div>
+</div>
+
+<!-- ===== TABS ===== -->
+<div class="tabs-wrap">
+    <div class="tabs">
+        <button class="tab active" onclick="go('day1',this)"><i class="fas fa-plane-arrival fa-sm"></i> D1 抵達</button>
+        <button class="tab" onclick="go('day2',this)"><i class="fas fa-water fa-sm"></i> D2 西海岸</button>
+        <button class="tab" onclick="go('day3',this)"><i class="fas fa-leaf fa-sm"></i> D3 大自然</button>
+        <button class="tab" onclick="go('day4',this)"><i class="fas fa-ship fa-sm"></i> D4 牛島</button>
+        <button class="tab" onclick="go('day5',this)"><i class="fas fa-plane-departure fa-sm"></i> D5 回家</button>
+        <button class="tab tab-budget" onclick="go('budget',this)"><i class="fas fa-wallet fa-sm"></i> 記帳</button>
+        <button class="tab tab-checklist" onclick="go('checklist',this)"><i class="fas fa-check-square fa-sm"></i> 行李</button>
+        <button class="tab tab-notes" onclick="go('notes',this)"><i class="fas fa-lightbulb fa-sm"></i> 必看</button>
+    </div>
+</div>
+
+<!-- ===== CONTENT ===== -->
+<div class="content">
+
+<!-- DAY 1 -->
+<div id="day1" class="tab-pane active">
+    <div class="day-header">
+        <div class="day-pill">6/16 (二) 抵達與黑豬肉盛宴</div>
+        <div class="day-weather">
+            <div class="weather-mini">☀️ 27° / 22°</div>
+        </div>
+    </div>
+    <div class="timeline">
+        <div class="card">
+            <div class="card-time"><i class="far fa-clock"></i> 17:30 – 19:30</div>
+            <div class="card-title">✈️ 抵達濟州 · 機場取車</div>
+            <div class="tags"><span class="tag t-drive"><i class="fas fa-car"></i> 自駕出發</span></div>
+            <div class="card-desc">辦理入境手續後，搭乘接駁車前往租車公司取車，準備開啟自駕之旅！</div>
+            <button class="tip-toggle" onclick="toggleTip(this)">
+                <i class="fas fa-lightbulb" style="color:#f0c000;"></i> 取車小提醒
+            </button>
+            <div class="tip-body">
+                <b>需帶文件：</b>台灣駕照正本 + 國際駕照正本 + 護照 + 信用卡（需與預約姓名相符）。<br>
+                建議事先在 <b>Naver Map</b> 下載濟州島離線地圖！
+            </div>
+        </div>
+
+        <div class="card highlight">
+            <div class="card-time"><i class="far fa-clock"></i> 19:30 – 21:30</div>
+            <div class="card-title">🐷 晚餐：熟成도 (숙성도)</div>
+            <div class="tags">
+                <span class="tag t-food"><i class="fas fa-fire"></i> 必吃推薦</span>
+                <span class="tag t-tip">⭐ 預約優先</span>
+            </div>
+            <div class="card-desc">濟州最頂的熟成黑豬肉！油花爆香，店員全程代烤，記得配韓國生馬格利酒。</div>
+            <div class="btns">
+                <a href="https://naver.me/5qRAV5Fm" target="_blank" class="btn btn-naver"><i class="fas fa-map-marked-alt"></i> Naver 導航</a>
+                <a href="https://maps.app.goo.gl/search/숙성도+제주" target="_blank" class="btn btn-google"><i class="fab fa-google"></i> 評論</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-time"><i class="far fa-clock"></i> 21:30 以後</div>
+            <div class="card-title">🏨 飯店 Check-in & Olive Young</div>
+            <div class="tags"><span class="tag t-shop"><i class="fas fa-shopping-bag"></i> 購物</span></div>
+            <div class="card-desc">入住濟州市區飯店，步行至附近 Olive Young 進行第一波補貨！面膜、防曬、精華液一次買齊。</div>
+            <button class="tip-toggle" onclick="toggleTip(this)">
+                <i class="fas fa-lightbulb" style="color:#f0c000;"></i> 購物推薦清單
+            </button>
+            <div class="tip-body">
+                Round Lab 防曬 · ISNTREE 保濕精華 · Dr.Jart+ 面膜 · 美樂童年防曬棒（超便宜！）
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- DAY 2 -->
+<div id="day2" class="tab-pane">
+    <div class="day-header">
+        <div class="day-pill">6/17 (三) 絕美西海岸線</div>
+        <div class="day-weather"><div class="weather-mini">⛅ 25° / 20°</div></div>
+    </div>
+    <div class="timeline">
+        <div class="card">
+            <div class="card-time"><i class="far fa-clock"></i> 09:30 – 11:30</div>
+            <div class="card-title">☕ 涯月邑海景咖啡街</div>
+            <div class="tags"><span class="tag t-spot"><i class="fas fa-camera"></i> 熱門打卡</span></div>
+            <div class="card-desc">海景第一排慢悠悠散步，推薦 <b>Cafe Layered</b>（多層蛋糕超好拍）或 <b>BOMNAL</b> 喝杯咖啡迎接早晨。</div>
+            <div class="btns">
+                <a href="https://naver.me/GyeyzXfS" target="_blank" class="btn btn-naver"><i class="fas fa-map-marked-alt"></i> Naver 導航</a>
+            </div>
+        </div>
+
+        <div class="card highlight">
+            <div class="card-time"><i class="far fa-clock"></i> 11:30 – 13:00</div>
+            <div class="card-title">🦀 午餐：Nora Bar 痛風海鮮拉麵</div>
+            <div class="tags"><span class="tag t-food"><i class="fas fa-utensils"></i> 必吃</span></div>
+            <div class="card-desc">面朝大海吃著鋪滿螃蟹與大蝦的拉麵，湯頭濃郁到捨不得放碗！需現場等候。</div>
+            <div class="btns">
+                <a href="https://naver.me/FzmVpW8f" target="_blank" class="btn btn-naver"><i class="fas fa-map-marked-alt"></i> Naver 導航</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-time"><i class="far fa-clock"></i> 13:30 – 17:30</div>
+            <div class="card-title">🌊 挾才海灘 & 新昌風車海岸</div>
+            <div class="tags">
+                <span class="tag t-spot"><i class="fas fa-umbrella-beach"></i> 絕美海景</span>
+                <span class="tag t-drive"><i class="fas fa-car"></i> 兜風路線</span>
+            </div>
+            <div class="card-desc">踩踩最細軟的藍色沙灘，傍晚開車沿著新昌海岸線，欣賞白色大風車配夕陽，超級壯觀！</div>
+        </div>
+
+        <div class="card">
+            <div class="card-time"><i class="far fa-clock"></i> 19:00 以後</div>
+            <div class="card-title">🍗 西歸浦市場 & 炸雞外送</div>
+            <div class="tags"><span class="tag t-food"><i class="fas fa-drumstick-bite"></i> 宵夜</span></div>
+            <div class="card-desc">入住西歸浦飯店。去每日偶來市場掃小吃，回飯店叫 <b>BHC</b> 或 <b>橋村炸雞</b>，配啤酒！</div>
+        </div>
+    </div>
+</div>
+
+<!-- DAY 3 -->
+<div id="day3" class="tab-pane">
+    <div class="day-header">
+        <div class="day-pill">6/18 (四) 大自然奇觀 & 海鮮</div>
+        <div class="day-weather"><div class="weather-mini">☀️ 28° / 23°</div></div>
+    </div>
+    <div class="timeline">
+        <div class="card">
+            <div class="card-time"><i class="far fa-clock"></i> 09:30 – 11:30</div>
+            <div class="card-title">🍵 O'sulloc 綠茶博物館</div>
+            <div class="tags"><span class="tag t-spot"><i class="fas fa-leaf"></i> 療癒景點</span></div>
+            <div class="card-desc">漫步廣闊茶園、吃一支抹茶冰淇淋，順遊隔壁 Innisfree 濟州小屋限定商品大採購！</div>
+            <div class="btns">
+                <a href="https://naver.me/G145Tj1l" target="_blank" class="btn btn-naver"><i class="fas fa-map-marked-alt"></i> Naver 導航</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-time"><i class="far fa-clock"></i> 12:00 – 16:00</div>
+            <div class="card-title">🌋 柱狀節理帶 或 史努比庭園</div>
+            <div class="tags"><span class="tag t-spot"><i class="fas fa-camera"></i> 二選一</span></div>
+            <div class="card-desc">
+                <b>柱狀節理帶：</b>火山熔岩冷卻形成的六角石柱，超震撼自然奇景。<br>
+                <b>史努比庭園：</b>戶外漫畫主題園，拍照超好看，適合輕鬆散步。<br>
+                午餐可選 <b>春日部咖哩螃蟹</b>！
+            </div>
+        </div>
+
+        <div class="card highlight">
+            <div class="card-time"><i class="far fa-clock"></i> 18:30 – 20:30</div>
+            <div class="card-title">🦑 晚餐：三姓穴活海鮮湯</div>
+            <div class="tags"><span class="tag t-food"><i class="fas fa-utensils"></i> 必吃</span></div>
+            <div class="card-desc">返回濟州市區後大啖超狂活海鮮鍋！生鮑魚、大章魚滿滿精華，湯頭鮮甜到爆，強烈推薦！</div>
+            <div class="btns">
+                <a href="https://naver.me/5bXdO7OQ" target="_blank" class="btn btn-naver"><i class="fas fa-map-marked-alt"></i> Naver 導航</a>
+                <a href="https://maps.app.goo.gl/search/삼성혈+해물탕" target="_blank" class="btn btn-google"><i class="fab fa-google"></i> 評論</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- DAY 4 -->
+<div id="day4" class="tab-pane">
+    <div class="day-header">
+        <div class="day-pill">6/19 (五) 東部秘境 & 採購</div>
+        <div class="day-weather"><div class="weather-mini">🌤 26° / 21°</div></div>
+    </div>
+    <div class="timeline">
+        <div class="card highlight">
+            <div class="card-time"><i class="far fa-clock"></i> 08:00 – 09:30</div>
+            <div class="card-title">🥯 早餐：London Bagel Museum</div>
+            <div class="tags">
+                <span class="tag t-food"><i class="fas fa-bread-slice"></i> 排隊名店</span>
+                <span class="tag t-tip">⏰ 提早出發</span>
+            </div>
+            <div class="card-desc">超人氣英倫風貝果！推薦松露牛肉貝果 & 蔥起司貝果，外帶後在附近公園野餐超愜意。</div>
+            <div class="btns">
+                <a href="https://naver.me/FLh2H6jX" target="_blank" class="btn btn-naver"><i class="fas fa-map-marked-alt"></i> Naver 導航</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-time"><i class="far fa-clock"></i> 10:00 – 14:00</div>
+            <div class="card-title">🚢 牛島 (Udo) 跳島一日遊</div>
+            <div class="tags">
+                <span class="tag t-spot"><i class="fas fa-ship"></i> 必去跳島</span>
+                <span class="tag t-food"><i class="fas fa-ice-cream"></i> 花生冰淇淋</span>
+            </div>
+            <div class="card-desc">車停城山港搭船登島（約15分鐘）。<b>租電動腳踏車</b>環島兜風，藍綠色的海水美得不像話！</div>
+            <button class="tip-toggle" onclick="toggleTip(this)">
+                <i class="fas fa-info-circle" style="color:#00a8cc;"></i> 牛島船班資訊
+            </button>
+            <div class="tip-body">
+                船票約 ₩5,900 單程，隨時有班次。腳踏車租金約 ₩10,000/小時。牛島花生冰淇淋是必吃，有原味和抹茶！
+            </div>
+            <div class="btns" style="margin-top:12px;">
+                <a href="https://naver.me/FxLqM2M1" target="_blank" class="btn btn-naver"><i class="fas fa-map-marked-alt"></i> 城山港定位</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-time"><i class="far fa-clock"></i> 14:30 – 16:00</div>
+            <div class="card-title">🏔 城山日出峰 & 白帶魚午餐</div>
+            <div class="tags"><span class="tag t-spot"><i class="fas fa-mountain"></i> 世界遺產</span></div>
+            <div class="card-desc">回到本島欣賞壯麗火山口景色（可選擇上山或僅外圍拍照），並品嚐濟州名物「整條無骨烤白帶魚」！</div>
+        </div>
+
+        <div class="card">
+            <div class="card-time"><i class="far fa-clock"></i> 17:00 – 20:30</div>
+            <div class="card-title">🛍 七星路 & 超市掃貨</div>
+            <div class="tags"><span class="tag t-shop"><i class="fas fa-shopping-cart"></i> 最後採購</span></div>
+            <div class="card-desc">美妝巡禮完，前往 <b>E-mart 濟州店</b> 或 <b>樂天超市</b> 掃韓國零食、泡麵、紫菜、柚子茶帶回台！</div>
+        </div>
+    </div>
+</div>
+
+<!-- DAY 5 -->
+<div id="day5" class="tab-pane">
+    <div class="day-header">
+        <div class="day-pill">6/20 (六) 滿載而歸 🎉</div>
+        <div class="day-weather"><div class="weather-mini">⛅ 24° / 19°</div></div>
+    </div>
+    <div class="timeline">
+        <div class="card highlight">
+            <div class="card-time"><i class="far fa-clock"></i> 08:00 – 09:00</div>
+            <div class="card-title">🍜 早餐：姊妹麵條 (자매국수)</div>
+            <div class="tags"><span class="tag t-food"><i class="fas fa-utensils"></i> 濟州名物</span></div>
+            <div class="card-desc">用一碗濃郁熱騰騰的「豬肉湯麵」，為這趟旅程畫下最美的句點。簡單卻最深刻的味道！</div>
+            <div class="btns">
+                <a href="https://naver.me/FhAdw3wB" target="_blank" class="btn btn-naver"><i class="fas fa-map-marked-alt"></i> Naver 導航</a>
+                <a href="https://maps.app.goo.gl/search/자매국수+제주" target="_blank" class="btn btn-google"><i class="fab fa-google"></i> 評論</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-time"><i class="far fa-clock"></i> 09:00 – 12:20</div>
+            <div class="card-title">✈️ 還車 & 機場登機</div>
+            <div class="tags"><span class="tag t-drive"><i class="fas fa-plane-departure"></i> 啟程回台</span></div>
+            <div class="card-desc">
+                <b>09:00</b> 準時還車（記得預留加油時間！）<br>
+                <b>10:00</b> 抵達濟州國際機場辦理登機<br>
+                <b>12:20</b> 德威航空 TW687 出發 ✈️ 台北松山
+            </div>
+            <button class="tip-toggle" onclick="toggleTip(this)">
+                <i class="fas fa-exclamation-circle" style="color:#e74c3c;"></i> 回程注意事項
+            </button>
+            <div class="tip-body">
+                ① 食品類（泡麵、零食）可帶，新鮮水果蔬菜肉類不可入台灣。<br>
+                ② 免稅品液體過 100ml 需托運。<br>
+                ③ 機場有最後一個 Olive Young，可在此買漏掉的清單！
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- BUDGET -->
+<div id="budget" class="tab-pane">
+    <div class="budget-hero">
+        <h3>💰 總花費（韓元）</h3>
+        <div class="budget-total" id="bTotal">₩0</div>
+        <div class="budget-sub" id="bSubtitle">約 NT$ 0 · 每人 NT$ 0</div>
+        <div class="budget-bar-wrap">
+            <div class="budget-bar-row" id="bBar">
+                <div class="bbar" style="background:#ffc947;width:0%;"></div>
+            </div>
+            <div class="budget-legend" id="bLegend"></div>
+        </div>
     </div>
 
-    <div class="content-container">
+    <div class="budget-cats" id="budgetCats"></div>
 
-        <div id="day1" class="tab-content active">
-            <div class="day-title">6/16 (二) 抵達與黑豬肉盛宴</div>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="item-time"><i class="far fa-clock"></i> 17:30 - 19:30</div>
-                    <div class="item-title">抵達濟州與機場取車</div>
-                    <div class="tag-group">
-                        <span class="tag tag-drive"><i class="fas fa-car"></i> 交通自駕</span>
-                    </div>
-                    <div class="item-desc">辦理入境手續後，搭乘接駁車前往租車公司取車，準備開啟自駕之旅。</div>
-                </div>
-                <div class="timeline-item" style="border: 2px solid var(--secondary);">
-                    <div class="item-time" style="color: var(--secondary);"><i class="far fa-clock"></i> 19:30 - 21:30</div>
-                    <div class="item-title">晚餐：熟成到 (숙성도)</div>
-                    <div class="tag-group">
-                        <span class="tag tag-food"><i class="fas fa-utensils"></i> 必吃美食</span>
-                    </div>
-                    <div class="item-desc">直奔濟州第一名的熟成黑豬肉！油花極香，店員全程代烤。</div>
-                    <div class="action-buttons">
-                        <a href="https://naver.me/5qRAV5Fm" target="_blank" class="btn-map btn-naver"><i class="fas fa-map-marked-alt"></i> Naver 導航</a>
-                        <a href="https://maps.app.goo.gl/xxx" target="_blank" class="btn-map btn-google"><i class="fab fa-google"></i> Google 評論</a>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="item-time"><i class="far fa-clock"></i> 21:30~</div>
-                    <div class="item-title">飯店 Check-in & Olive Young</div>
-                    <div class="tag-group">
-                        <span class="tag tag-shop"><i class="fas fa-shopping-bag"></i> 逛街購物</span>
-                    </div>
-                    <div class="item-desc">入住濟州市區飯店，步行至附近的 Olive Young 進行第一波補貨。</div>
-                </div>
-            </div>
-        </div>
-
-        <div id="day2" class="tab-content">
-            <div class="day-title">6/17 (三) 絕美西海岸線</div>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="item-time"><i class="far fa-clock"></i> 09:30 - 11:30</div>
-                    <div class="item-title">涯月邑海景咖啡街</div>
-                    <div class="tag-group"><span class="tag tag-spot"><i class="fas fa-camera"></i> 熱門打卡</span></div>
-                    <div class="item-desc">海景第一排散步，挑選 Cafe Layered 或 BOMNAL 喝杯咖啡。</div>
-                    <div class="action-buttons">
-                        <a href="https://naver.me/GyeyzXfS" target="_blank" class="btn-map btn-naver"><i class="fas fa-map-marked-alt"></i> Naver 導航</a>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="item-time"><i class="far fa-clock"></i> 11:30 - 13:00</div>
-                    <div class="item-title">午餐：Nora Bar 痛風海鮮拉麵</div>
-                    <div class="tag-group"><span class="tag tag-food"><i class="fas fa-utensils"></i> 必吃美食</span></div>
-                    <div class="item-desc">面朝大海大口吃著鋪滿螃蟹與蝦子的海鮮拉麵。</div>
-                    <div class="action-buttons">
-                        <a href="https://naver.me/FzmVpW8f" target="_blank" class="btn-map btn-naver"><i class="fas fa-map-marked-alt"></i> Naver 導航</a>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="item-time"><i class="far fa-clock"></i> 13:30 - 17:30</div>
-                    <div class="item-title">挾才海灘 & 新昌風車海岸道路</div>
-                    <div class="tag-group"><span class="tag tag-spot"><i class="fas fa-camera"></i> 絕美海景</span></div>
-                    <div class="item-desc">踩踩最細軟的藍色海灘，傍晚開車沿著新昌海岸線，欣賞白色大風車與夕陽。</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="item-time"><i class="far fa-clock"></i> 19:00~</div>
-                    <div class="item-title">西歸浦市場 & 炸雞外送</div>
-                    <div class="tag-group"><span class="tag tag-food"><i class="fas fa-drumstick-bite"></i> 宵夜推薦</span></div>
-                    <div class="item-desc">入住西歸浦飯店。去每日偶來市場買小吃，回飯店叫 BHC 或 橋村炸雞！</div>
-                </div>
-            </div>
-        </div>
-
-        <div id="day3" class="tab-content">
-            <div class="day-title">6/18 (四) 大自然奇觀與海鮮盛宴</div>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="item-time"><i class="far fa-clock"></i> 09:30 - 11:30</div>
-                    <div class="item-title">O'sulloc 綠茶博物館</div>
-                    <div class="tag-group"><span class="tag tag-spot"><i class="fas fa-leaf"></i> 療癒景點</span></div>
-                    <div class="item-desc">漫步綠茶園吃抹茶冰淇淋，順遊 Innisfree 濟州小屋。</div>
-                     <div class="action-buttons">
-                        <a href="https://naver.me/G145Tj1l" target="_blank" class="btn-map btn-naver"><i class="fas fa-map-marked-alt"></i> Naver 導航</a>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="item-time"><i class="far fa-clock"></i> 12:00 - 16:00</div>
-                    <div class="item-title">柱狀節理帶 或 史努比庭園</div>
-                    <div class="tag-group"><span class="tag tag-spot"><i class="fas fa-camera"></i> 熱門打卡</span></div>
-                    <div class="item-desc">午餐吃春日部咖哩螃蟹，下午欣賞火山地貌柱狀節理帶或去 Snoopy Garden。</div>
-                </div>
-                <div class="timeline-item" style="border: 2px solid var(--secondary);">
-                    <div class="item-time" style="color: var(--secondary);"><i class="far fa-clock"></i> 18:30 - 20:30</div>
-                    <div class="item-title">晚餐：三姓穴海鮮湯</div>
-                    <div class="tag-group"><span class="tag tag-food"><i class="fas fa-utensils"></i> 必吃美食</span></div>
-                    <div class="item-desc">返回濟州市區飯店後，晚餐大啖超狂活海鮮鍋！生鮑魚、大章魚滿滿精華。</div>
-                    <div class="action-buttons">
-                        <a href="https://naver.me/5bXdO7OQ" target="_blank" class="btn-map btn-naver"><i class="fas fa-map-marked-alt"></i> Naver 導航</a>
-                        <a href="https://maps.app.goo.gl/xxx" target="_blank" class="btn-map btn-google"><i class="fab fa-google"></i> Google 評論</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="day4" class="tab-content">
-            <div class="day-title">6/19 (五) 東部跳島秘境與最後採購</div>
-            <div class="timeline">
-                <div class="timeline-item" style="border: 2px solid var(--secondary);">
-                    <div class="item-time" style="color: var(--secondary);"><i class="far fa-clock"></i> 08:00 - 09:30</div>
-                    <div class="item-title">早餐：London Bagel Museum</div>
-                    <div class="tag-group"><span class="tag tag-food"><i class="fas fa-bread-slice"></i> 排隊美食</span></div>
-                    <div class="item-desc">超人氣英倫風貝果店！提早出發外帶松露貝果和蔥起司貝果。</div>
-                    <div class="action-buttons">
-                        <a href="https://naver.me/FLh2H6jX" target="_blank" class="btn-map btn-naver"><i class="fas fa-map-marked-alt"></i> Naver 導航</a>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="item-time"><i class="far fa-clock"></i> 10:00 - 14:00</div>
-                    <div class="item-title">漫遊牛島 (Udo)</div>
-                    <div class="tag-group"><span class="tag tag-spot"><i class="fas fa-ship"></i> 必去跳島</span></div>
-                    <div class="item-desc">車停城山港搭船登島。租電動腳踏車環島兜風，必吃牛島花生冰淇淋！</div>
-                    <div class="action-buttons">
-                        <a href="https://naver.me/FxLqM2M1" target="_blank" class="btn-map btn-naver"><i class="fas fa-map-marked-alt"></i> 城山港定位</a>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="item-time"><i class="far fa-clock"></i> 14:30 - 16:00</div>
-                    <div class="item-title">城山日出峰 & 午餐</div>
-                    <div class="tag-group"><span class="tag tag-spot"><i class="fas fa-mountain"></i> 世界遺產</span></div>
-                    <div class="item-desc">回到本島欣賞壯麗火山口，並品嚐濟州特產「整條無骨烤白帶魚」。</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="item-time"><i class="far fa-clock"></i> 17:00 - 20:30</div>
-                    <div class="item-title">七星路商圈 & 超市伴手禮</div>
-                    <div class="tag-group"><span class="tag tag-shop"><i class="fas fa-shopping-cart"></i> 瘋狂採買</span></div>
-                    <div class="item-desc">商圈美妝巡禮，隨後前往 E-mart 或 樂天超市 掃貨韓國零食帶回台！</div>
-                </div>
-            </div>
-        </div>
-
-        <div id="day5" class="tab-content">
-            <div class="day-title">6/20 (六) 滿載而歸</div>
-            <div class="timeline">
-                <div class="timeline-item" style="border: 2px solid var(--secondary);">
-                    <div class="item-time" style="color: var(--secondary);"><i class="far fa-clock"></i> 08:00 - 09:00</div>
-                    <div class="item-title">早餐：姊妹麵條 (자매국수)</div>
-                    <div class="tag-group"><span class="tag tag-food"><i class="fas fa-utensils"></i> 必吃美食</span></div>
-                    <div class="item-desc">用一碗濃郁熱騰騰的濟州名物「豬肉湯麵」，畫下完美句點。</div>
-                    <div class="action-buttons">
-                        <a href="https://naver.me/FhAdw3wB" target="_blank" class="btn-map btn-naver"><i class="fas fa-map-marked-alt"></i> Naver 導航</a>
-                        <a href="https://maps.app.goo.gl/xxx" target="_blank" class="btn-map btn-google"><i class="fab fa-google"></i> Google 評論</a>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="item-time"><i class="far fa-clock"></i> 09:00 - 12:20</div>
-                    <div class="item-title">還車與機場登機</div>
-                    <div class="tag-group"><span class="tag tag-drive"><i class="fas fa-plane-departure"></i> 滿載而歸</span></div>
-                    <div class="item-desc">09:00 租車公司還車，10:00 抵達機場。搭乘德威航空 TW687 返回台北。</div>
-                </div>
-            </div>
-        </div>
-
-        <div id="checklist" class="tab-content">
-            <div class="day-title" style="background: linear-gradient(135deg, #389e0d 0%, #73d13d 100%);">✅ 出發前行李檢查表</div>
-            
-            <div class="checklist-group">
-                <h4><i class="fas fa-id-card"></i> 必備證件與文件</h4>
-                <label class="check-item"><input type="checkbox" id="chk-passport"><span>護照 (確認效期六個月以上)</span></label>
-                <label class="check-item"><input type="checkbox" id="chk-tw-license"><span>台灣駕照正本 (韓國租車必備)</span></label>
-                <label class="check-item"><input type="checkbox" id="chk-intl-license"><span>國際駕照正本 (需去監理所申請)</span></label>
-                <label class="check-item"><input type="checkbox" id="chk-creditcard"><span>實體信用卡 (主副駕駛需同名)</span></label>
-                <label class="check-item"><input type="checkbox" id="chk-won"><span>韓幣現金 (先在台灣換好部分)</span></label>
-            </div>
-
-            <div class="checklist-group">
-                <h4><i class="fas fa-mobile-alt"></i> 電子與通訊設備</h4>
-                <label class="check-item"><input type="checkbox" id="chk-adapter"><span>韓國轉接頭 (雙圓孔 220V)</span></label>
-                <label class="check-item"><input type="checkbox" id="chk-sim"><span>網卡 / eSIM 或 Wi-Fi 分享器</span></label>
-                <label class="check-item"><input type="checkbox" id="chk-powerbank"><span>行動電源與充電線</span></label>
-                <label class="check-item"><input type="checkbox" id="chk-car-charger"><span>車充轉接頭 (自駕手機導航很耗電)</span></label>
-            </div>
-
-            <div class="checklist-group">
-                <h4><i class="fas fa-tshirt"></i> 個人衣物與保養</h4>
-                <label class="check-item"><input type="checkbox" id="chk-clothes"><span>每日換洗衣物與內衣褲</span></label>
-                <label class="check-item"><input type="checkbox" id="chk-shoes"><span>好走的平底鞋/運動鞋</span></label>
-                <label class="check-item"><input type="checkbox" id="chk-sunscreen"><span>防曬乳與太陽眼鏡 (海島必備)</span></label>
-                <label class="check-item"><input type="checkbox" id="chk-meds"><span>個人常備藥物 (暈車藥、腸胃藥)</span></label>
-                <label class="check-item"><input type="checkbox" id="chk-umbrella"><span>折疊傘或輕便雨衣</span></label>
-            </div>
-        </div>
-
-        <div id="notes" class="tab-content">
-            <div class="notes-section">
-                <h3><i class="fas fa-exclamation-triangle" style="color: #f1c40f;"></i> 雙地圖使用守則</h3>
-                <ul>
-                    <li><strong>Google Maps 只能看評論：</strong> 韓國因法規限制，Google Maps 無法進行精準路線導航。只能用來出發前預覽或看外國人評價。</li>
-                    <li><strong>Naver Map 才是自駕神隊友：</strong> 行程中已為您附上 Naver Map 連結，請用它來導航！在當地也能輸入餐廳「電話號碼」精準定位。</li>
-                </ul>
-            </div>
-            <div class="notes-section">
-                <h3><i class="fas fa-clock" style="color: var(--primary);"></i> 時差與氣候</h3>
-                <ul>
-                    <li><strong>快一小時：</strong> 韓國當地時間比台灣快 1 小時，網頁頂部已為您製作即時時鐘對照。</li>
-                    <li><strong>留意航班時間：</strong> 機票上的起飛降落時間，皆為「當地時間」，請以韓國時間為準前往機場。</li>
-                </ul>
-            </div>
-        </div>
-
+    <div class="budget-log-title">
+        明細記錄
+        <button class="budget-add-btn" onclick="toggleForm()">+ 新增</button>
     </div>
 
-    <script>
-        // 頁籤切換
-        function openTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            event.currentTarget.classList.add('active');
-        }
+    <div class="add-form" id="addForm">
+        <h4>新增花費</h4>
+        <input type="text" class="form-input" id="fName" placeholder="項目名稱（例：黑豬肉晚餐）" style="width:100%;margin-bottom:8px;">
+        <div class="form-row">
+            <input type="number" class="form-input" id="fAmt" placeholder="金額 (₩)">
+            <select class="form-select" id="fCat">
+                <option value="food">🍽 餐飲</option>
+                <option value="spot">🎡 景點</option>
+                <option value="shop">🛍 購物</option>
+                <option value="transport">🚗 交通</option>
+                <option value="hotel">🏨 住宿</option>
+                <option value="other">📦 其他</option>
+            </select>
+        </div>
+        <select class="form-select" id="fDay" style="width:100%;margin-bottom:8px;">
+            <option value="D1">D1 - 6/16 抵達</option>
+            <option value="D2">D2 - 6/17 西海岸</option>
+            <option value="D3">D3 - 6/18 大自然</option>
+            <option value="D4">D4 - 6/19 牛島</option>
+            <option value="D5">D5 - 6/20 回家</option>
+        </select>
+        <div class="form-btns">
+            <button class="form-save" onclick="saveExpense()">💾 記帳</button>
+            <button class="form-cancel" onclick="toggleForm()">取消</button>
+        </div>
+    </div>
 
-        // 時間更新邏輯
-        function updateTime() {
-            const now = new Date();
-            
-            // 台灣時間 (UTC+8)
-            const twOptions = { timeZone: 'Asia/Taipei', hour: '2-digit', minute: '2-digit', hour12: false };
-            document.getElementById('time-tw').textContent = new Intl.DateTimeFormat('en-US', twOptions).format(now);
-            
-            // 韓國時間 (UTC+9)
-            const krOptions = { timeZone: 'Asia/Seoul', hour: '2-digit', minute: '2-digit', hour12: false };
-            document.getElementById('time-kr').textContent = new Intl.DateTimeFormat('en-US', krOptions).format(now);
-        }
+    <div class="budget-log" id="expenseLog">
+        <div style="text-align:center;padding:20px;color:var(--muted);font-size:0.9rem;">
+            尚無記錄，點「＋ 新增」開始記帳吧！
+        </div>
+    </div>
+</div>
 
-        // 初始化時鐘並每秒更新
-        updateTime();
-        setInterval(updateTime, 1000);
+<!-- CHECKLIST -->
+<div id="checklist" class="tab-pane">
+    <div class="chk-progress">
+        <div class="chk-bar-bg"><div class="chk-bar" id="chkBar" style="width:0%"></div></div>
+        <div class="chk-pct" id="chkPct">0%</div>
+    </div>
 
-        // --- 全新功能：檢查表記憶儲存 ---
-        document.addEventListener('DOMContentLoaded', () => {
-            const checkboxes = document.querySelectorAll('.check-item input[type="checkbox"]');
-            
-            // 頁面載入時讀取本地儲存的狀態
-            checkboxes.forEach(box => {
-                const isChecked = localStorage.getItem(box.id);
-                if (isChecked === 'true') {
-                    box.checked = true;
-                }
-                
-                // 狀態改變時儲存起來
-                box.addEventListener('change', function() {
-                    localStorage.setItem(this.id, this.checked);
-                });
-            });
+    <div class="checklist-section">
+        <h4><i class="fas fa-id-card" style="color:var(--primary)"></i> 必備證件與文件</h4>
+        <label class="chk-label"><input type="checkbox" id="c1" onchange="updateChk()"><span>護照（效期六個月以上）</span></label>
+        <label class="chk-label"><input type="checkbox" id="c2" onchange="updateChk()"><span>台灣駕照正本</span></label>
+        <label class="chk-label"><input type="checkbox" id="c3" onchange="updateChk()"><span>國際駕照正本（需去監理所申請）</span></label>
+        <label class="chk-label"><input type="checkbox" id="c4" onchange="updateChk()"><span>實體信用卡（主副駕需同名）</span></label>
+        <label class="chk-label"><input type="checkbox" id="c5" onchange="updateChk()"><span>韓幣現金（建議先換好）</span></label>
+    </div>
+
+    <div class="checklist-section">
+        <h4><i class="fas fa-mobile-alt" style="color:var(--primary)"></i> 電子與通訊設備</h4>
+        <label class="chk-label"><input type="checkbox" id="c6" onchange="updateChk()"><span>韓國轉接頭（雙圓孔 220V）</span></label>
+        <label class="chk-label"><input type="checkbox" id="c7" onchange="updateChk()"><span>網卡 / eSIM 或 Wi-Fi 分享器</span></label>
+        <label class="chk-label"><input type="checkbox" id="c8" onchange="updateChk()"><span>行動電源與充電線</span></label>
+        <label class="chk-label"><input type="checkbox" id="c9" onchange="updateChk()"><span>車充轉接頭（自駕導航很耗電！）</span></label>
+        <label class="chk-label"><input type="checkbox" id="c10" onchange="updateChk()"><span>已下載 Naver Map 離線地圖</span></label>
+    </div>
+
+    <div class="checklist-section">
+        <h4><i class="fas fa-tshirt" style="color:var(--primary)"></i> 衣物與生活用品</h4>
+        <label class="chk-label"><input type="checkbox" id="c11" onchange="updateChk()"><span>每日換洗衣物</span></label>
+        <label class="chk-label"><input type="checkbox" id="c12" onchange="updateChk()"><span>好走的平底鞋/運動鞋</span></label>
+        <label class="chk-label"><input type="checkbox" id="c13" onchange="updateChk()"><span>防曬乳與太陽眼鏡</span></label>
+        <label class="chk-label"><input type="checkbox" id="c14" onchange="updateChk()"><span>個人常備藥（暈車藥、腸胃藥）</span></label>
+        <label class="chk-label"><input type="checkbox" id="c15" onchange="updateChk()"><span>折疊傘或輕便雨衣</span></label>
+        <label class="chk-label"><input type="checkbox" id="c16" onchange="updateChk()"><span>環保購物袋（超市掃貨用）</span></label>
+    </div>
+</div>
+
+<!-- NOTES -->
+<div id="notes" class="tab-pane">
+    <div class="emergency-box">
+        <h3><i class="fas fa-phone-alt"></i> 緊急聯絡電話</h3>
+        <div class="phone-row">
+            <span class="phone-label">韓國緊急救護</span>
+            <a href="tel:119" class="phone-num">119</a>
+        </div>
+        <div class="phone-row">
+            <span class="phone-label">警察局</span>
+            <a href="tel:112" class="phone-num">112</a>
+        </div>
+        <div class="phone-row">
+            <span class="phone-label">外國人觀光客熱線</span>
+            <a href="tel:1330" class="phone-num">1330</a>
+        </div>
+    </div>
+
+    <div class="notes-card danger">
+        <h3><i class="fas fa-map-marked-alt" style="color:var(--secondary)"></i> 雙地圖使用守則</h3>
+        <ul>
+            <li><strong>Google Maps 只能看評論：</strong>韓國因法規限制，無法精準導航。出發前預覽或看外國人評價用。</li>
+            <li><strong>Naver Map 才是自駕神隊友：</strong>行程中已附上連結，導航請全程使用它！輸入電話號碼可精準定位。</li>
+            <li><strong>KakaoMap 也可備用：</strong>部分小店只有 KakaoMap 資料。</li>
+        </ul>
+    </div>
+
+    <div class="notes-card warn">
+        <h3><i class="fas fa-gas-pump" style="color:var(--warning)"></i> 自駕油費 & 停車</h3>
+        <ul>
+            <li><strong>加油：</strong>韓國使用「LPG / 휘발유（汽油）/ 경유（柴油）」，確認租車油種再加油！</li>
+            <li><strong>停車費：</strong>景點停車場約 ₩2,000-5,000/小時，市區較貴。</li>
+            <li><strong>還車前記得加滿油：</strong>租車公司通常要求滿油歸還。</li>
+        </ul>
+    </div>
+
+    <div class="notes-card">
+        <h3><i class="fas fa-clock" style="color:var(--primary)"></i> 時差 & 航班提醒</h3>
+        <ul>
+            <li><strong>韓國比台灣快 1 小時：</strong>機票時間均為當地時間，請以韓國時間前往機場。</li>
+            <li><strong>去程：</strong>出發時間以台灣時間為準。</li>
+            <li><strong>回程 TW687：</strong>12:20 濟州起飛（韓國時間），約 14:05 抵台北松山。</li>
+        </ul>
+    </div>
+
+    <div class="notes-card">
+        <h3><i class="fas fa-won-sign" style="color:var(--primary)"></i> 換匯 & 付款</h3>
+        <ul>
+            <li><strong>建議換匯：</strong>台灣可在兆豐或韓國銀行換，到當地明洞或濟州市區換匯所也 ok。</li>
+            <li><strong>大部分餐廳接受刷卡：</strong>但傳統市場、小店仍需現金。</li>
+            <li><strong>T-money 卡：</strong>若有搭地鐵或公車需求可購買（濟州沒地鐵，較少用到）。</li>
+        </ul>
+    </div>
+</div>
+
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// === 時鐘 ===
+function updateClock() {
+    const now = new Date();
+    const tw = { timeZone:'Asia/Taipei', hour:'2-digit', minute:'2-digit', hour12:false };
+    const kr = { timeZone:'Asia/Seoul', hour:'2-digit', minute:'2-digit', hour12:false };
+    const twD = { timeZone:'Asia/Taipei', month:'numeric', day:'numeric', weekday:'short' };
+    const krD = { timeZone:'Asia/Seoul', month:'numeric', day:'numeric', weekday:'short' };
+    document.getElementById('tw-time').textContent = new Intl.DateTimeFormat('zh-TW', tw).format(now);
+    document.getElementById('kr-time').textContent = new Intl.DateTimeFormat('zh-TW', kr).format(now);
+    document.getElementById('tw-date').textContent = new Intl.DateTimeFormat('zh-TW', twD).format(now);
+    document.getElementById('kr-date').textContent = new Intl.DateTimeFormat('zh-TW', krD).format(now);
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+// === 旅程進度 ===
+function updateProgress() {
+    const start = new Date('2025-06-16T00:00:00+09:00');
+    const end   = new Date('2025-06-20T23:59:59+09:00');
+    const now   = new Date();
+    let pct = 0, statusText = '旅程即將開始 🎒';
+
+    if (now >= start && now <= end) {
+        pct = Math.min(100, ((now - start) / (end - start)) * 100);
+        const dayNum = Math.ceil((now - start) / (1000*60*60*24));
+        statusText = `進行中 · 第 ${Math.min(dayNum,5)} 天`;
+        document.querySelectorAll('.progress-day').forEach(el => {
+            if (parseInt(el.dataset.day) === Math.min(dayNum,5)) el.classList.add('today');
         });
-    </script>
+    } else if (now > end) {
+        pct = 100;
+        statusText = '旅程已結束 · 回憶無價 💙';
+    }
+    document.getElementById('trip-bar').style.width = pct + '%';
+    document.getElementById('trip-status').textContent = statusText;
+}
+updateProgress();
 
+// === Tab 切換 ===
+function go(id, btn) {
+    document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+}
+
+// === Tips 折疊 ===
+function toggleTip(btn) {
+    const body = btn.nextElementSibling;
+    body.classList.toggle('open');
+    btn.querySelector('i').style.transform = body.classList.contains('open') ? 'rotate(0deg)' : '';
+}
+
+// === 行李清單 ===
+function updateChk() {
+    const all = document.querySelectorAll('.chk-label input[type="checkbox"]');
+    const done = document.querySelectorAll('.chk-label input[type="checkbox"]:checked').length;
+    const pct = Math.round((done / all.length) * 100);
+    document.getElementById('chkBar').style.width = pct + '%';
+    document.getElementById('chkPct').textContent = pct + '%';
+    // Save
+    all.forEach(c => localStorage.setItem(c.id, c.checked));
+}
+
+// Load checklist state
+document.querySelectorAll('.chk-label input[type="checkbox"]').forEach(c => {
+    if (localStorage.getItem(c.id) === 'true') c.checked = true;
+});
+updateChk();
+
+// === 記帳功能 ===
+const catMeta = {
+    food:      { emoji:'🍽', name:'餐飲', color:'#ff7b54' },
+    spot:      { emoji:'🎡', name:'景點', color:'#00a8cc' },
+    shop:      { emoji:'🛍', name:'購物', color:'#ffc947' },
+    transport: { emoji:'🚗', name:'交通', color:'#34c06d' },
+    hotel:     { emoji:'🏨', name:'住宿', color:'#a569bd' },
+    other:     { emoji:'📦', name:'其他', color:'#95a5a6' },
+};
+let expenses = JSON.parse(localStorage.getItem('jeju_expenses') || '[]');
+
+function saveStorage() { localStorage.setItem('jeju_expenses', JSON.stringify(expenses)); }
+
+function renderBudget() {
+    const total = expenses.reduce((s, e) => s + e.amt, 0);
+    document.getElementById('bTotal').textContent = '₩' + total.toLocaleString();
+    document.getElementById('bSubtitle').textContent = `約 NT$ ${Math.round(total/36).toLocaleString()} · 每人 NT$ ${Math.round(total/36/2).toLocaleString()}`;
+
+    // Bar
+    const bBar = document.getElementById('bBar');
+    const bLegend = document.getElementById('bLegend');
+    bBar.innerHTML = ''; bLegend.innerHTML = '';
+    const byCat = {};
+    expenses.forEach(e => { byCat[e.cat] = (byCat[e.cat] || 0) + e.amt; });
+    Object.entries(byCat).forEach(([cat, amt]) => {
+        const pct = total ? (amt / total * 100) : 0;
+        const m = catMeta[cat];
+        bBar.innerHTML += `<div class="bbar" style="background:${m.color};width:${pct}%;min-width:${pct>0?'4px':'0'}"></div>`;
+        bLegend.innerHTML += `<div class="bl"><div class="bl-dot" style="background:${m.color}"></div>${m.emoji} ${m.name} ₩${amt.toLocaleString()}</div>`;
+    });
+
+    // Category cards
+    const cats = document.getElementById('budgetCats');
+    cats.innerHTML = '';
+    Object.entries(catMeta).forEach(([key, m]) => {
+        const amt = byCat[key] || 0;
+        const pct = total ? Math.round(amt / total * 100) : 0;
+        cats.innerHTML += `<div class="budget-cat">
+            <div class="budget-cat-icon">${m.emoji}</div>
+            <div class="budget-cat-name">${m.name}</div>
+            <div class="budget-cat-amt">₩${amt.toLocaleString()}</div>
+            <div class="budget-cat-per">${pct}%</div>
+        </div>`;
+    });
+
+    // Log
+    const log = document.getElementById('expenseLog');
+    if (expenses.length === 0) {
+        log.innerHTML = '<div style="text-align:center;padding:20px;color:var(--muted);font-size:0.9rem;">尚無記錄，點「＋ 新增」開始記帳吧！</div>';
+        return;
+    }
+    log.innerHTML = '';
+    [...expenses].reverse().forEach((e, ri) => {
+        const i = expenses.length - 1 - ri;
+        const m = catMeta[e.cat];
+        log.innerHTML += `<div class="blog-item">
+            <div class="blog-emoji">${m.emoji}</div>
+            <div class="blog-info">
+                <div class="blog-name">${e.name}</div>
+                <div class="blog-day">${e.day} · ${m.name}</div>
+            </div>
+            <div class="blog-amt">₩${e.amt.toLocaleString()}</div>
+            <button class="blog-del" onclick="delExpense(${i})">✕</button>
+        </div>`;
+    });
+}
+
+function toggleForm() {
+    const f = document.getElementById('addForm');
+    f.classList.toggle('open');
+    if (f.classList.contains('open')) {
+        document.getElementById('fName').focus();
+    }
+}
+
+function saveExpense() {
+    const name = document.getElementById('fName').value.trim();
+    const amt  = parseInt(document.getElementById('fAmt').value);
+    const cat  = document.getElementById('fCat').value;
+    const day  = document.getElementById('fDay').value;
+    if (!name || !amt || amt <= 0) { showToast('⚠️ 請填寫名稱與金額！'); return; }
+    expenses.push({ name, amt, cat, day });
+    saveStorage(); renderBudget();
+    document.getElementById('fName').value = '';
+    document.getElementById('fAmt').value = '';
+    document.getElementById('addForm').classList.remove('open');
+    showToast('✅ 已記帳！');
+}
+
+function delExpense(i) {
+    expenses.splice(i, 1);
+    saveStorage(); renderBudget();
+    showToast('🗑 已刪除');
+}
+
+renderBudget();
+
+// === Toast ===
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2200);
+}
+</script>
 </body>
 </html>

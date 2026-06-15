@@ -14,16 +14,47 @@
             --naver: #03c75a; --border: #e2eef3;
             --success: #34c06d; --warning: #ff9f43;
         }
+
+        /* ===== DARK MODE ===== */
+        [data-theme="dark"] {
+            --bg: #121a2f; --card: #1e293b;
+            --text: #f1f5f9; --muted: #94a3b8;
+            --border: #334155; --primary: #0ea5e9;
+            --secondary: #f97316;
+        }
+        [data-theme="dark"] .hero { background: linear-gradient(160deg, #0f172a 0%, #1e293b 100%); }
+        [data-theme="dark"] .tabs-wrap { background: var(--bg); border-color: var(--border); }
+        [data-theme="dark"] .tab { background: #1e293b; color: var(--muted); }
+        [data-theme="dark"] .tab.active { background: var(--primary); color: white; }
+        [data-theme="dark"] .card { background: var(--card); border-color: var(--border); }
+        [data-theme="dark"] .card::before { background: var(--card); box-shadow: 0 0 0 3px var(--bg); }
+        [data-theme="dark"] .budget-cat { background: var(--card); border-color: var(--border); }
+        [data-theme="dark"] .blog-item { background: var(--card); border-color: var(--border); }
+        [data-theme="dark"] .add-form { background: var(--card); }
+        [data-theme="dark"] .checklist-section { background: var(--card); border-color: var(--border); }
+        [data-theme="dark"] .notes-card { background: var(--card); border-color: var(--border); }
+        [data-theme="dark"] .emergency-box { background: #2d1b15; border-color: #5c2d1b; }
+        [data-theme="dark"] .emergency-box h3 { color: #ff8a65; }
+        [data-theme="dark"] .phone-label { color: #d7ccc8; }
+        [data-theme="dark"] .phone-num { color: #ffab91; }
+        [data-theme="dark"] .tip-body, [data-theme="dark"] .tip-toggle { background: #2a2411; border-color: #4a3f1c; color: #e4c55e; }
+        [data-theme="dark"] .btn-google { background: #1e3a5f; color: #93c5fd; border-color: #2c4a75; }
+        [data-theme="dark"] .btn-naver { background: rgba(3,199,90,0.15); border-color: rgba(3,199,90,0.3); }
+        [data-theme="dark"] .weather-mini { background: var(--card); border-color: var(--border); }
+        [data-theme="dark"] .form-input, [data-theme="dark"] .form-select { background: var(--bg); color: var(--text); border-color: var(--border); }
+
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding-bottom: 50px; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding-bottom: 50px; transition: background 0.3s, color 0.3s; }
 
         /* HERO */
-        .hero { background: linear-gradient(160deg, #00a8cc 0%, #007a99 60%, #005f78 100%); color: white; padding: 28px 20px 20px; position: relative; overflow: hidden; }
+        .hero { background: linear-gradient(160deg, #00a8cc 0%, #007a99 60%, #005f78 100%); color: white; padding: 28px 20px 20px; position: relative; overflow: hidden; transition: background 0.3s; }
         .hero::before { content:''; position:absolute; top:-40px; right:-40px; width:180px; height:180px; border-radius:50%; background:rgba(255,255,255,0.06); }
         .hero-top { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px; }
         .hero h1 { font-size:1.45rem; font-weight:800; letter-spacing:-0.3px; }
         .hero-sub { font-size:0.85rem; opacity:0.8; margin-top:4px; }
         .hero-badge { background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.25); border-radius:20px; padding:5px 12px; font-size:0.75rem; font-weight:700; white-space:nowrap; }
+        .theme-btn { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.25); color: white; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); transition: all 0.2s; }
+        .theme-btn:active { transform: scale(0.9); }
         .clock-row { display:flex; gap:12px; background:rgba(0,0,0,0.15); border-radius:14px; padding:12px 16px; margin-top:4px; }
         .clock-box { flex:1; text-align:center; }
         .tz-label { font-size:0.68rem; text-transform:uppercase; letter-spacing:1px; opacity:0.7; margin-bottom:2px; }
@@ -39,7 +70,7 @@
         .progress-day.today { opacity:1; color:var(--accent); }
 
         /* TABS */
-        .tabs-wrap { background:white; border-bottom:1px solid var(--border); position:sticky; top:0; z-index:100; box-shadow:0 2px 10px rgba(0,0,0,0.06); }
+        .tabs-wrap { background:var(--card); border-bottom:1px solid var(--border); position:sticky; top:0; z-index:100; box-shadow:0 2px 10px rgba(0,0,0,0.06); transition: background 0.3s; }
         .tabs { display:flex; overflow-x:auto; -webkit-overflow-scrolling:touch; padding:10px 12px; gap:8px; scrollbar-width:none; }
         .tabs::-webkit-scrollbar { display:none; }
         .tab { display:flex; align-items:center; gap:5px; padding:7px 14px; border-radius:20px; border:none; font-size:0.82rem; font-weight:700; cursor:pointer; white-space:nowrap; transition:all 0.25s; background:#f0f7fa; color:var(--primary); }
@@ -59,13 +90,13 @@
         .day-header { display:flex; align-items:center; gap:10px; margin-bottom:22px; }
         .day-pill { background:linear-gradient(135deg,var(--primary),var(--primary-dark)); color:white; padding:7px 18px; border-radius:20px; font-weight:800; font-size:0.95rem; box-shadow:0 3px 10px rgba(0,168,204,0.3); }
         .day-weather { margin-left:auto; }
-        .weather-mini { background:white; border:1px solid var(--border); border-radius:12px; padding:6px 12px; display:flex; align-items:center; gap:6px; font-size:0.8rem; color:var(--muted); font-weight:600; }
+        .weather-mini { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:6px 12px; display:flex; align-items:center; gap:6px; font-size:0.8rem; color:var(--muted); font-weight:600; }
 
         /* TIMELINE */
         .timeline { border-left:3px dashed #c5dfe9; margin-left:10px; padding-left:22px; }
-        .card { background:white; border-radius:16px; padding:18px; margin-bottom:20px; border:1px solid var(--border); box-shadow:0 3px 12px rgba(0,0,0,0.04); position:relative; transition:box-shadow 0.2s; }
+        .card { background:var(--card); border-radius:16px; padding:18px; margin-bottom:20px; border:1px solid var(--border); box-shadow:0 3px 12px rgba(0,0,0,0.04); position:relative; transition:all 0.3s; }
         .card.highlight { border:2px solid var(--secondary); }
-        .card::before { content:''; position:absolute; left:-31px; top:18px; width:16px; height:16px; border-radius:50%; background:white; border:3.5px solid var(--primary); box-shadow:0 0 0 3px var(--bg); }
+        .card::before { content:''; position:absolute; left:-31px; top:18px; width:16px; height:16px; border-radius:50%; background:var(--card); border:3.5px solid var(--primary); box-shadow:0 0 0 3px var(--bg); transition: background 0.3s; }
         .card.highlight::before { border-color:var(--secondary); }
         .card-time { color:var(--primary); font-weight:800; font-size:0.82rem; margin-bottom:6px; display:flex; align-items:center; gap:5px; }
         .card.highlight .card-time { color:var(--secondary); }
@@ -82,7 +113,7 @@
         .t-tip   { background:#fef9e7; color:#8a6d00; }
 
         /* MAP BUTTONS */
-        .btns { display:flex; gap:8px; flex-wrap:wrap; padding-top:12px; border-top:1px solid #f0f5f8; }
+        .btns { display:flex; gap:8px; flex-wrap:wrap; padding-top:12px; border-top:1px solid var(--border); }
         .btn { flex:1; min-width:110px; padding:9px 10px; border-radius:9px; font-size:0.8rem; font-weight:700; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:6px; transition:opacity 0.2s,transform 0.15s; }
         .btn:active { opacity:0.8; transform:scale(0.97); }
         .btn-naver { background:rgba(3,199,90,0.1); color:#02a84c; border:1px solid rgba(3,199,90,0.22); }
@@ -105,91 +136,28 @@
         .edit-btn.active { background:#e8f7ea; border-color:var(--success); color:var(--success); }
 
         /* Inline editing styles */
-        [contenteditable="true"] {
-            outline:none;
-            border-radius:6px;
-            padding:3px 6px;
-            margin:-3px -6px;
-            border:1.5px dashed var(--primary);
-            background:#f5fbff;
-            cursor:text;
-            min-width:60px;
-            display:inline-block;
-            transition:border-color 0.2s, background 0.2s;
-        }
-        [contenteditable="true"]:focus {
-            background:#eaf6ff;
-            border-color:var(--primary-dark);
-            box-shadow:0 0 0 3px rgba(0,168,204,0.12);
-        }
-        .card-desc[contenteditable="true"] {
-            display:block; width:100%;
-            min-height:40px;
-            margin-bottom:14px;
-        }
-        .card-time[contenteditable="true"] {
-            display:flex;
-        }
-
-        /* Edit mode indicator strip */
-        .card.editing {
-            border:2px solid var(--primary) !important;
-            box-shadow:0 0 0 3px rgba(0,168,204,0.1) !important;
-        }
-        .card.editing::after {
-            content:'✏️ 編輯模式';
-            position:absolute; top:-10px; left:12px;
-            background:var(--primary); color:white;
-            font-size:0.65rem; font-weight:800;
-            padding:2px 8px; border-radius:99px;
-            letter-spacing:0.5px;
-        }
+        [contenteditable="true"] { outline:none; border-radius:6px; padding:3px 6px; margin:-3px -6px; border:1.5px dashed var(--primary); background:rgba(0,168,204,0.1); cursor:text; min-width:60px; display:inline-block; transition:border-color 0.2s, background 0.2s; }
+        [contenteditable="true"]:focus { background:rgba(0,168,204,0.15); border-color:var(--primary-dark); box-shadow:0 0 0 3px rgba(0,168,204,0.12); }
+        .card-desc[contenteditable="true"] { display:block; width:100%; min-height:40px; margin-bottom:14px; }
+        .card-time[contenteditable="true"] { display:flex; }
+        .card.editing { border:2px solid var(--primary) !important; box-shadow:0 0 0 3px rgba(0,168,204,0.1) !important; }
+        .card.editing::after { content:'✏️ 編輯模式'; position:absolute; top:-10px; left:12px; background:var(--primary); color:white; font-size:0.65rem; font-weight:800; padding:2px 8px; border-radius:99px; letter-spacing:0.5px; }
         .card.highlight.editing { border:2px solid var(--primary) !important; }
 
-        /* Save indicator pulse */
-        @keyframes savePulse { 0%{opacity:1} 50%{opacity:0.4} 100%{opacity:1} }
-        .saving-indicator { animation:savePulse 0.6s ease; }
-
-        /* Add card button */
-        .add-card-btn {
-            display:flex; align-items:center; justify-content:center; gap:8px;
-            width:100%; padding:12px; border-radius:14px;
-            border:2px dashed #c5dfe9; background:transparent;
-            color:var(--muted); font-size:0.85rem; font-weight:700;
-            cursor:pointer; margin-bottom:20px; transition:all 0.2s;
-        }
+        /* Add / Delete card buttons */
+        .add-card-btn { display:flex; align-items:center; justify-content:center; gap:8px; width:100%; padding:12px; border-radius:14px; border:2px dashed #c5dfe9; background:transparent; color:var(--muted); font-size:0.85rem; font-weight:700; cursor:pointer; margin-bottom:20px; transition:all 0.2s; }
         .add-card-btn:hover { border-color:var(--primary); color:var(--primary); background:rgba(0,168,204,0.04); }
-
-        /* Delete card button */
-        .del-card-btn {
-            flex-shrink:0; width:30px; height:30px; border-radius:8px;
-            background:transparent; border:1px solid #ffd0c8;
-            color:#ffb3a7; cursor:pointer; display:none; align-items:center; justify-content:center;
-            font-size:0.75rem; transition:all 0.2s;
-        }
+        .del-card-btn { flex-shrink:0; width:30px; height:30px; border-radius:8px; background:transparent; border:1px solid #ffd0c8; color:#ffb3a7; cursor:pointer; display:none; align-items:center; justify-content:center; font-size:0.75rem; transition:all 0.2s; }
         .card.editing .del-card-btn { display:flex; }
         .del-card-btn:hover { background:#fff0ee; border-color:var(--secondary); color:var(--secondary); }
 
-        /* Naver URL edit field */
-        .naver-edit-row {
-            display:none; align-items:center; gap:6px;
-            margin-top:8px; padding-top:8px; border-top:1px dashed #e0eff5;
-        }
+        /* Naver URL & Highlight edits */
+        .naver-edit-row { display:none; align-items:center; gap:6px; margin-top:8px; padding-top:8px; border-top:1px dashed var(--border); }
         .card.editing .naver-edit-row { display:flex; }
-        .naver-url-input {
-            flex:1; padding:6px 10px; border:1px solid var(--border);
-            border-radius:8px; font-size:0.75rem; color:var(--text);
-            background:#fafcfd; font-family:inherit; min-width:0;
-        }
+        .naver-url-input { flex:1; padding:6px 10px; border:1px solid var(--border); border-radius:8px; font-size:0.75rem; color:var(--text); background:var(--bg); font-family:inherit; min-width:0; }
         .naver-url-input:focus { outline:none; border-color:var(--naver); }
         .naver-url-label { font-size:0.72rem; color:var(--muted); white-space:nowrap; font-weight:600; }
-
-        /* Highlight toggle */
-        .highlight-toggle {
-            display:none; align-items:center; gap:6px;
-            font-size:0.75rem; color:var(--muted); cursor:pointer;
-            margin-top:8px;
-        }
+        .highlight-toggle { display:none; align-items:center; gap:6px; font-size:0.75rem; color:var(--muted); cursor:pointer; margin-top:8px; }
         .card.editing .highlight-toggle { display:flex; }
         .highlight-toggle input { accent-color:var(--secondary); }
 
@@ -204,7 +172,7 @@
         .bl { display:flex; align-items:center; gap:5px; font-size:0.72rem; opacity:0.9; }
         .bl-dot { width:8px; height:8px; border-radius:2px; flex-shrink:0; }
         .budget-cats { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; }
-        .budget-cat { background:white; border-radius:12px; padding:14px; border:1px solid var(--border); text-align:center; }
+        .budget-cat { background:var(--card); border-radius:12px; padding:14px; border:1px solid var(--border); text-align:center; }
         .budget-cat-icon { font-size:1.4rem; margin-bottom:4px; }
         .budget-cat-name { font-size:0.72rem; color:var(--muted); margin-bottom:4px; }
         .budget-cat-amt { font-size:1.1rem; font-weight:800; }
@@ -212,38 +180,38 @@
         .budget-log-title { font-size:0.9rem; font-weight:800; margin-bottom:12px; display:flex; align-items:center; justify-content:space-between; }
         .budget-add-btn { background:var(--primary); color:white; border:none; border-radius:8px; padding:5px 12px; font-size:0.78rem; font-weight:700; cursor:pointer; }
         .budget-log { display:flex; flex-direction:column; gap:8px; }
-        .blog-item { background:white; border-radius:10px; padding:12px 14px; display:flex; align-items:center; gap:10px; border:1px solid var(--border); }
+        .blog-item { background:var(--card); border-radius:10px; padding:12px 14px; display:flex; align-items:center; gap:10px; border:1px solid var(--border); }
         .blog-emoji { font-size:1.2rem; width:36px; height:36px; background:var(--bg); border-radius:8px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
         .blog-info { flex:1; }
         .blog-name { font-size:0.88rem; font-weight:700; }
         .blog-day { font-size:0.72rem; color:var(--muted); }
         .blog-amt { font-size:0.95rem; font-weight:800; }
         .blog-del { background:none; border:none; color:#ccc; cursor:pointer; font-size:1rem; padding:4px; }
-        .add-form { background:white; border-radius:14px; padding:16px; border:1.5px solid var(--primary); margin-bottom:16px; display:none; }
+        .add-form { background:var(--card); border-radius:14px; padding:16px; border:1.5px solid var(--primary); margin-bottom:16px; display:none; }
         .add-form.open { display:block; }
         .add-form h4 { font-size:0.88rem; font-weight:700; margin-bottom:12px; color:var(--primary); }
         .form-row { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px; }
-        .form-input { width:100%; padding:9px 11px; border:1px solid var(--border); border-radius:9px; font-size:0.85rem; color:var(--text); background:#fafcfd; font-family:inherit; }
+        .form-input { width:100%; padding:9px 11px; border:1px solid var(--border); border-radius:9px; font-size:0.85rem; color:var(--text); background:var(--bg); font-family:inherit; }
         .form-input:focus { outline:none; border-color:var(--primary); }
-        .form-select { width:100%; padding:9px 11px; border:1px solid var(--border); border-radius:9px; font-size:0.85rem; color:var(--text); background:#fafcfd; font-family:inherit; }
+        .form-select { width:100%; padding:9px 11px; border:1px solid var(--border); border-radius:9px; font-size:0.85rem; color:var(--text); background:var(--bg); font-family:inherit; }
         .form-btns { display:flex; gap:8px; margin-top:10px; }
         .form-save { flex:1; background:var(--primary); color:white; border:none; border-radius:9px; padding:9px; font-size:0.85rem; font-weight:700; cursor:pointer; }
-        .form-cancel { background:#f0f5f8; color:var(--muted); border:none; border-radius:9px; padding:9px 16px; font-size:0.85rem; font-weight:700; cursor:pointer; }
+        .form-cancel { background:var(--bg); color:var(--muted); border:1px solid var(--border); border-radius:9px; padding:9px 16px; font-size:0.85rem; font-weight:700; cursor:pointer; }
 
         /* CHECKLIST */
-        .checklist-section { background:white; border-radius:16px; padding:18px; margin-bottom:16px; border:1px solid var(--border); }
-        .checklist-section h4 { display:flex; align-items:center; gap:8px; font-size:1rem; margin-bottom:14px; padding-bottom:10px; border-bottom:1.5px solid #f0f6f9; }
+        .checklist-section { background:var(--card); border-radius:16px; padding:18px; margin-bottom:16px; border:1px solid var(--border); }
+        .checklist-section h4 { display:flex; align-items:center; gap:8px; font-size:1rem; margin-bottom:14px; padding-bottom:10px; border-bottom:1.5px solid var(--border); }
         .chk-label { display:flex; align-items:center; gap:11px; margin-bottom:13px; cursor:pointer; user-select:none; }
         .chk-label input[type="checkbox"] { width:21px; height:21px; accent-color:var(--primary); cursor:pointer; flex-shrink:0; }
         .chk-label span { font-size:0.95rem; transition:all 0.2s; }
         .chk-label input:checked + span { text-decoration:line-through; color:#b0bec5; }
         .chk-progress { display:flex; align-items:center; gap:10px; margin-bottom:16px; }
         .chk-pct { font-size:0.78rem; color:var(--muted); font-weight:600; min-width:35px; text-align:right; }
-        .chk-bar-bg { flex:1; height:5px; background:#e8f4f8; border-radius:99px; }
+        .chk-bar-bg { flex:1; height:5px; background:var(--border); border-radius:99px; }
         .chk-bar { height:5px; background:var(--success); border-radius:99px; transition:width 0.4s ease; }
 
         /* NOTES */
-        .notes-card { background:white; border-radius:16px; padding:18px; margin-bottom:14px; border:1px solid var(--border); border-left:4px solid var(--primary); }
+        .notes-card { background:var(--card); border-radius:16px; padding:18px; margin-bottom:14px; border:1px solid var(--border); border-left:4px solid var(--primary); }
         .notes-card.warn { border-left-color:var(--warning); }
         .notes-card.danger { border-left-color:var(--secondary); }
         .notes-card h3 { font-size:1rem; margin-bottom:12px; display:flex; align-items:center; gap:7px; }
@@ -259,6 +227,19 @@
         /* TOAST */
         .toast { position:fixed; bottom:80px; left:50%; transform:translateX(-50%) translateY(20px); background:#1a2d3d; color:white; padding:10px 20px; border-radius:99px; font-size:0.82rem; font-weight:600; opacity:0; transition:all 0.3s; z-index:9999; pointer-events:none; white-space:nowrap; }
         .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+        /* ===== CURRENCY CALCULATOR ===== */
+        .fab-calc { position: fixed; bottom: 20px; right: 20px; background: var(--secondary); color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(255,123,84,0.4); cursor: pointer; z-index: 1000; font-size: 1.4rem; transition: transform 0.2s; }
+        .fab-calc:active { transform: scale(0.9); }
+        .calc-panel { position: fixed; bottom: 85px; right: 20px; background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 16px; width: 280px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); z-index: 1000; display: none; animation: up 0.3s ease; }
+        .calc-panel.show { display: block; }
+        .calc-header { font-size: 1rem; font-weight: 800; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; color: var(--text); }
+        .calc-close { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 1.2rem; }
+        .calc-input { width: 100%; padding: 12px; border: 1.5px solid var(--border); border-radius: 10px; font-size: 1.1rem; background: var(--bg); color: var(--text); font-weight: 700; margin-bottom: 8px; transition: border-color 0.2s; }
+        .calc-input:focus { outline: none; border-color: var(--secondary); }
+        .calc-result { font-size: 2rem; font-weight: 800; color: var(--secondary); text-align: right; margin-top: 4px; }
+        .calc-rate-row { display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem; color: var(--muted); margin-bottom: 12px; background: var(--bg); padding: 8px 10px; border-radius: 8px; }
+        .calc-rate-input { width: 50px; padding: 4px; border: 1px solid var(--border); border-radius: 4px; background: var(--card); color: var(--text); text-align: right; font-size: 0.8rem; font-weight: 700; margin-left: 4px; }
     </style>
 </head>
 <body>
@@ -269,7 +250,12 @@
             <h1>🌴 濟州島林家自駕遊</h1>
             <div class="hero-sub">6月16日 – 6月20日 · 五天四夜</div>
         </div>
-        <span class="hero-badge">✈️ TW687</span>
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="切換深色/淺色模式">
+                <i class="fas fa-moon"></i>
+            </button>
+            <span class="hero-badge">✈️ TW687</span>
+        </div>
     </div>
     <div class="clock-row">
         <div class="clock-box">
@@ -419,10 +405,65 @@
     </div>
 </div>
 
+<div class="fab-calc" onclick="toggleCalc()"><i class="fas fa-calculator"></i></div>
+<div class="calc-panel" id="calcPanel">
+    <div class="calc-header">
+        <span><i class="fas fa-won-sign"></i> 匯率快算</span>
+        <button class="calc-close" onclick="toggleCalc()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="calc-rate-row">
+        <span>自訂匯率基準</span>
+        <div>1 TWD = <input type="number" id="calcRate" class="calc-rate-input" value="48" oninput="doCalc(); updateBudgetRate();"> ₩</div>
+    </div>
+    <input type="number" id="calcKrw" class="calc-input" placeholder="輸入韓元 (₩)" oninput="doCalc()">
+    <div style="text-align: right; margin-top: 8px; font-size: 0.8rem; color: var(--muted); font-weight:700;">約合台幣</div>
+    <div class="calc-result" id="calcTwd">NT$ 0</div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
-// ─── 預設行程資料 ───────────────────────────────────────────
+// ===== 護眼深色模式 =====
+const themeBtn = document.getElementById('themeBtn');
+const currentTheme = localStorage.getItem('jeju_theme');
+if (currentTheme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    themeBtn.innerHTML = '<i class="fas fa-sun"></i>';
+}
+function toggleTheme() {
+    const root = document.documentElement;
+    if (root.getAttribute('data-theme') === 'dark') {
+        root.removeAttribute('data-theme');
+        localStorage.setItem('jeju_theme', 'light');
+        themeBtn.innerHTML = '<i class="fas fa-moon"></i>';
+        showToast('已切換為淺色模式 ☀️');
+    } else {
+        root.setAttribute('data-theme', 'dark');
+        localStorage.setItem('jeju_theme', 'dark');
+        themeBtn.innerHTML = '<i class="fas fa-sun"></i>';
+        showToast('已切換為深色模式 🌙');
+    }
+}
+
+// ===== 懸浮匯率小算盤 =====
+function toggleCalc() {
+    const panel = document.getElementById('calcPanel');
+    panel.classList.toggle('show');
+    if (panel.classList.contains('show')) {
+        document.getElementById('calcKrw').focus();
+    }
+}
+function doCalc() {
+    const krw = parseFloat(document.getElementById('calcKrw').value) || 0;
+    const rate = parseFloat(document.getElementById('calcRate').value) || 48;
+    const twd = Math.round(krw / rate);
+    document.getElementById('calcTwd').textContent = 'NT$ ' + twd.toLocaleString();
+}
+function updateBudgetRate() {
+    renderBudget();
+}
+
+// ─── 預設行程資料 (一字不漏完整保留) ─────────────────────────
 const DEFAULT_DAYS = [
   {
     id:'day1', pill:'6/16 (二) 抵達與黑豬肉盛宴', weather:'☀️ 27° / 22°',
@@ -561,7 +602,6 @@ function toggleEdit(cardId, dayId, btn) {
   const isEditing = cardEl.classList.contains('editing');
 
   if (isEditing) {
-    // 儲存
     const timeEl  = cardEl.querySelector('.editable-time');
     const titleEl = cardEl.querySelector('.editable-title');
     const descEl  = cardEl.querySelector('.editable-desc');
@@ -570,7 +610,6 @@ function toggleEdit(cardId, dayId, btn) {
     titleEl.contentEditable = 'false';
     descEl.contentEditable  = 'false';
 
-    // 寫回資料
     const day = days.find(d => d.id === dayId);
     const card = day && day.cards.find(c => c.id === cardId);
     if (card) {
@@ -586,7 +625,6 @@ function toggleEdit(cardId, dayId, btn) {
     btn.title = '編輯';
     showToast('✅ 已儲存！');
   } else {
-    // 進入編輯模式
     const timeEl  = cardEl.querySelector('.editable-time');
     const titleEl = cardEl.querySelector('.editable-title');
     const descEl  = cardEl.querySelector('.editable-desc');
@@ -601,7 +639,6 @@ function toggleEdit(cardId, dayId, btn) {
     btn.title = '儲存';
     titleEl.focus();
 
-    // 選取全部文字方便直接替換
     const range = document.createRange();
     range.selectNodeContents(titleEl);
     const sel = window.getSelection();
@@ -622,7 +659,6 @@ function toggleHighlight(cardId, dayId, checked) {
   if (card) {
     card.highlight = checked;
     saveDays(days);
-    // Update card style
     const cardEl = document.getElementById('card-' + cardId);
     cardEl.classList.toggle('highlight', checked);
   }
@@ -650,7 +686,6 @@ function addCard(dayId) {
   });
   saveDays(days);
   renderDays();
-  // Auto-enter edit mode
   setTimeout(() => {
     const btn = document.querySelector(`#card-${newId} .edit-btn`);
     if (btn) toggleEdit(newId, dayId, btn);
@@ -658,13 +693,11 @@ function addCard(dayId) {
   showToast('✅ 已新增行程，請直接編輯！');
 }
 
-// ─── Tips 折疊 ──────────────────────────────────────────────
 function toggleTip(btn) {
   const body = btn.nextElementSibling;
   body.classList.toggle('open');
 }
 
-// ─── Tab 切換 ───────────────────────────────────────────────
 function go(id, btn) {
   document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
@@ -689,8 +722,8 @@ setInterval(updateClock, 1000);
 
 // ─── 旅程進度 ────────────────────────────────────────────────
 function updateProgress() {
-  const start = new Date('2026-06-16T00:00:00+09:00'); // 修正為 2026 年
-  const end   = new Date('2026-06-20T23:59:59+09:00'); // 修正為 2026 年
+  const start = new Date('2026-06-16T00:00:00+09:00');
+  const end   = new Date('2026-06-20T23:59:59+09:00');
   const now   = new Date();
   let pct = 0, txt = '旅程即將開始 🎒';
   if (now >= start && now <= end) {
@@ -736,8 +769,11 @@ function renderBudget() {
   const total = expenses.reduce((s,e)=>s+e.amt,0);
   document.getElementById('bTotal').textContent = '₩'+total.toLocaleString();
   
-  // 匯率優化：使用 41 作為台幣換算分母，數據更精準
-  document.getElementById('bSubtitle').textContent = `約 NT$ ${Math.round(total/41).toLocaleString()} · 每人 NT$ ${Math.round(total/41/2).toLocaleString()}`;
+  // 自動抓取小算盤設定的匯率
+  const rateInput = document.getElementById('calcRate');
+  const rate = rateInput ? (parseFloat(rateInput.value) || 48) : 48;
+  
+  document.getElementById('bSubtitle').textContent = `約 NT$ ${Math.round(total/rate).toLocaleString()} · 每人 NT$ ${Math.round(total/rate/2).toLocaleString()}`;
   const byCat={};
   expenses.forEach(e=>{byCat[e.cat]=(byCat[e.cat]||0)+e.amt;});
   const bBar=document.getElementById('bBar'), bLegend=document.getElementById('bLegend');
